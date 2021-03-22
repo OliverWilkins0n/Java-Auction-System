@@ -13,7 +13,7 @@ public class sys {
 			System.out.println("2 - Browse Auctions");
 			System.out.println("3 - Setup Account");
 			System.out.println("Q - Quit");
-			System.out.println(":");
+			System.out.println("Input: ");
 			
 			choice = S.nextLine().toUpperCase();
 			

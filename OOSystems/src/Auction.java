@@ -21,6 +21,7 @@ public class Auction {
 //	public boolean isBlocked() {
 //
 //	}
+	//
 	
 	public void setBlocked() {
 		
