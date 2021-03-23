@@ -4,7 +4,7 @@ public abstract class User{
 
   protected User(String username, String password) throws Exception{
     this.username = username;
-    if (checkPassword(password)) {
+    if (isValid(password)) {
       this.password = password;
     } else {
       throw new Exception("Password to short!");
@@ -17,12 +17,20 @@ public abstract class User{
 
   //idk if this checkPassword should be to do this, or to like check if the
   //password they entered is the correct one for there account.
-  protected boolean checkPassword(String password){
+  protected boolean isValid(String password){
     if (password.length() >= 5){
       return true;
     } else {
       return false;
     }
 }
+
+public boolean checkPassword(int userPassword){
+    if (password == userPassword) {
+      return true;
+    }
+    else {
+      return false;
+    }
 
 }

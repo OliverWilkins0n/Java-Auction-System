@@ -8,7 +8,9 @@ public class Auction {
 	private LocalDate closeDate;
 	private char status;
 
-	public Auction(double startPrice, double reservePrice, LocalDate closeDate,	char status){
+	public Auction(Seller seller, Buyer buyer, double startPrice, double reservePrice, LocalDate closeDate,	char status){
+		this.seller = seller;
+		this.buyer = buyer;
 		this.startPrice = startPrice;
 		this.reservePrice = reservePrice;
 		this.closeDate = closeDate;
