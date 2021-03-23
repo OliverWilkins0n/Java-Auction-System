@@ -1,4 +1,4 @@
-public class Seller {
+public class Seller extends User {
 
 //  public boolean isBlocked(){
 //

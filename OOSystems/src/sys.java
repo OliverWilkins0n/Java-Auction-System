@@ -9,24 +9,27 @@ public class sys {
 
 		do {
 			System.out.println("==== Main Menu ====");
-			System.out.println("1 - Place an Auction");
-			System.out.println("2 - Browse Auctions");
-			System.out.println("3 - Setup Account");
+			System.out.println("1 - [P]lace an Auction");
+			System.out.println("2 - [B]rowse Auctions");
+			System.out.println("3 - [S]etup Account");
 			System.out.println("Q - Quit");
 			System.out.println("Input: ");
 
 			choice = S.nextLine().toUpperCase();
 
 			switch (choice) {
-				case "1" : {
+				case "1" :
+				case "P" :{
 					placeAuction();
 					break;
 				}
-				case "2" : {
+				case "2" :
+				case "B" : {
 					browseAuction();
 					break;
 				}
-				case "3" : {
+				case "3" :
+				case "S" : {
 					setupAccount();
 					break;
 				}
@@ -45,8 +48,10 @@ public class sys {
 
 	}
 
-	public static void setupAccount() {
+	public static void setupAccount(String username, String password) {
 
 	}
+
+//	public boolean authenticateUser(int)
 
 }
