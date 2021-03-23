@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class sys {
 	private final static Scanner S = new Scanner(System.in);
 
-	public void main(String[] args) {
+	public static void main(String[] args) {
 		
 		String choice = "";
 		
@@ -34,15 +34,15 @@ public class sys {
 	}
 
 	
-	public void placeAuction() {
+	public static void placeAuction() {
 		
 	}
 	
-	public void browseAuction() {
+	public static void browseAuction() {
 		
 	}
 	
-	public void setupAccount() {
+	public static void setupAccount() {
 		
 	}
 	
