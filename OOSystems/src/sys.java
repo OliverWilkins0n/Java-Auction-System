@@ -48,7 +48,7 @@ public class sys {
 
 	}
 
-	public static void setupAccount(String username, String password) {
+	public static void setupAccount() {
 
 	}
 

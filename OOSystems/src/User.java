@@ -15,8 +15,6 @@ public abstract class User{
     return this.username;
   }
 
-  //idk if this checkPassword should be to do this, or to like check if the
-  //password they entered is the correct one for there account.
   protected boolean isValid(String password){
     if (password.length() >= 5){
       return true;
@@ -25,12 +23,11 @@ public abstract class User{
     }
 }
 
-public boolean checkPassword(int userPassword){
-    if (password == userPassword) {
+public boolean checkPassword(String password){
+    if (this.password == password) {
       return true;
     }
     else {
       return false;
     }
-
 }

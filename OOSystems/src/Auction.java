@@ -4,6 +4,7 @@ public class Auction {
 
 	private Seller seller;
 	private Buyer buyer;
+	private Item item;
 	private double startPrice, reservePrice;
 	private LocalDate closeDate;
 	private char status;
@@ -13,8 +14,18 @@ public class Auction {
 		this.buyer = buyer;
 		this.startPrice = startPrice;
 		this.reservePrice = reservePrice;
+		//Need to make sure that the close date is within 7 days and not in the past
 		this.closeDate = closeDate;
 		this.status = status;
+	}
+
+	//Get Functions
+	public Seller getSeller(){
+		return this.seller;
+	}
+
+	public Item getItem(){
+		return this.item;
 	}
 
 	public void placeBid() {
