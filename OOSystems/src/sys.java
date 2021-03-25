@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javax.swing.JOptionPane;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
@@ -12,6 +14,8 @@ public class sys {
 		String choice = "";
 		String filepath = "database.txt";
 		String filepath_auction = "auction_database.txt";
+		String line = "";
+		String splitBy = ",";
 
 		do {
 			//Doesnt a user need to login to place an auction?
@@ -33,7 +37,7 @@ public class sys {
 				}
 				case "2" :
 				case "B" : {
-					browseAuction();
+					browseAuction(filepath_auction,line,splitBy);
 					break;
 				}
 				case "3" :
@@ -64,11 +68,12 @@ public class sys {
 		Double startPrice = S.nextDouble();
 		System.out.print("Please enter a reserve price: ");
 		Double reservePrice = S.nextDouble();
+		//add local time and cancel after 7 days or whatever it was
 		try {
 			FileWriter fw2 = new FileWriter(filepath_auction,true);
 			BufferedWriter bw2 = new BufferedWriter(fw2);
 			PrintWriter pw2 = new PrintWriter(bw2);
-			//writing username and password into new line of our database
+			//writing  specified objetcs on a new line into our database
 			pw2.println(itemName+","+description+","+startPrice+","+reservePrice);
 			pw2.flush();
 			pw2.close();
@@ -82,9 +87,27 @@ public class sys {
 
 	}
 
-	public static void browseAuction() {
+	public static void browseAuction(String filepath_auction, String line,  String splitBy) {
+		//reader to read already existing auctions from datatbase
+			try {
+				//	System.out.println("==== Active Auctions ====");
+					BufferedReader br = new BufferedReader(new FileReader(filepath_auction));
+					while ((line = br.readLine()) != null) // return boolean value
+					{
+						//converting lines from database into an array to output nicely
+						String[] auctionOutput = line.split(splitBy);
+						System.out.println("Item name=" + auctionOutput[0] + ", Description=" + auctionOutput[1] + ", Start Price = £" + auctionOutput[2] + ", Reserve Price= £" + auctionOutput[3]);
+						br.close();
+					}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
 
 	}
+
 
 	public static void setupAccount(String filepath) {
 		//need to add to check if username already exists
