@@ -97,8 +97,9 @@ public class sys {
 						//converting lines from database into an array to output nicely
 						String[] auctionOutput = line.split(splitBy);
 						System.out.println("Item name=" + auctionOutput[0] + ", Description=" + auctionOutput[1] + ", Start Price = £" + auctionOutput[2] + ", Reserve Price= £" + auctionOutput[3]);
-						br.close();
+
 					}
+					br.close();
 			}
 			catch (Exception e)
 			{
@@ -107,6 +108,7 @@ public class sys {
 
 
 	}
+
 
 
 	public static void setupAccount(String filepath) {
