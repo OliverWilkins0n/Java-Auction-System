@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Auction {
 
 
-	private Seller seller = new Seller();
+	private Seller seller;
 	private Buyer buyer;
 	private Item item;
 	private double startPrice, reservePrice;
@@ -33,9 +33,9 @@ public class Auction {
 		return this.item;
 	}
 
-	public void placeBid(double amount, Buyer buyer) {
-		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
-	}
+//	public void placeBid(double amount, Buyer buyer) {
+//		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
+//	}
 
 	public void verify() {
 

@@ -19,7 +19,7 @@ public class sys {
 
 	//This of for adding the composition with the class Auction.
 
-	private static List<Auction> auctions = new LinkedList<Auction>();
+//	private static List<Auction> auctions = new LinkedList<Auction>();
 	//The next bit of this code to follow is link 49
 
 
@@ -94,9 +94,9 @@ public class sys {
 
 	public static List<Auction> readAuctionsFromCSV(String filepath_auction){
 		List<Auction> auctions = new ArrayList<>();
-		Path filePath = Paths.get(filepath_auction);
+		Path filePath1 = Paths.get(filepath_auction);
 
-		try (BufferedReader br = Files.newBufferedReader(filePath)){
+		try (BufferedReader br = Files.newBufferedReader(filePath1)){
 			String line = br.readLine();
 			while(line != null){
 				//Splits the line at each , to separate the attributes
