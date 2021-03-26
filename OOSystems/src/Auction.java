@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
-public class Auction {
+public final class Auction {
 
 
 	private Seller seller;
@@ -13,6 +13,10 @@ public class Auction {
 	private LocalDate closeDate;
 	private char status;
 	private List<Bid> bidList = new ArrayList<Bid>();
+
+	public Auction(){
+
+	}
 
 
 	public Auction(Seller seller, double startPrice, double reservePrice, LocalDate closeDate){
@@ -36,6 +40,10 @@ public class Auction {
 //	public void placeBid(double amount, Buyer buyer) {
 //		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
 //	}
+
+	public void placeBid(double amount, Buyer buyer) throws Exception{
+		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
+	}
 
 	public void verify() {
 

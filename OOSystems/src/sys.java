@@ -29,7 +29,7 @@ public class sys {
 		this.auctions = auctions;
 	}
 	*/
-
+	//Auction auctions123 = new Auction();
 
 
 	public static void main(String[] args) {
@@ -46,6 +46,7 @@ public class sys {
 
 		//Loading the CSV files into arrays. 125 in auction
 	//	List<Auction> auctions = new ArrayList<Auction>();
+		System.out.println("0");
 		List<Auction> auctions = readAuctionsFromCSV(filepath_auction);
 
 		System.out.println("test: "+auctions);
@@ -93,8 +94,10 @@ public class sys {
 	}
 
 	public static List<Auction> readAuctionsFromCSV(String filepath_auction){
+		System.out.println("1");
 		List<Auction> auctions = new ArrayList<>();
 		Path filePath1 = Paths.get(filepath_auction);
+		System.out.println("2");
 
 		try (BufferedReader br = Files.newBufferedReader(filePath1)){
 			String line = br.readLine();

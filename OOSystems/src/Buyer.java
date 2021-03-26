@@ -1,5 +1,9 @@
 public class Buyer extends User {
 
+  public Buyer(){
+
+  }
+
   public Buyer(String username, String password) throws Exception{
     super(username, password);
   }
