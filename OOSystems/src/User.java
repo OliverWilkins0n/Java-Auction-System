@@ -4,11 +4,7 @@ public abstract class User{
 
   protected User(String username, String password) throws Exception{
     this.username = username;
-    if (isValid(password)) {
-      this.password = password;
-    } else {
-      throw new Exception("Password to short!");
-    }
+    this.password = password;
   }
 
   public String getUsername(){
@@ -30,4 +26,5 @@ public boolean checkPassword(String password){
     else {
       return false;
     }
+}
 }

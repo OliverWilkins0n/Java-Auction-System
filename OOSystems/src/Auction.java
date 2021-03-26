@@ -1,22 +1,27 @@
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDate;
 
 public class Auction {
 
-	private Seller seller;
-	private Buyer buyer;
+
+	private Seller seller = new Seller();
+	private Buyer buyer = new Buyer();
 	private Item item;
 	private double startPrice, reservePrice;
 	private LocalDate closeDate;
 	private char status;
+	private List<Bid> bidList = new ArrayList<Bid>();
 
-	public Auction(Seller seller, Buyer buyer, double startPrice, double reservePrice, LocalDate closeDate,	char status){
+
+	public Auction(Seller seller, double startPrice, double reservePrice, LocalDate closeDate){
 		this.seller = seller;
-		this.buyer = buyer;
 		this.startPrice = startPrice;
 		this.reservePrice = reservePrice;
 		//Need to make sure that the close date is within 7 days and not in the past
 		this.closeDate = closeDate;
-		this.status = status;
+	//	this.status = status;
 	}
 
 	//Get Functions
@@ -28,8 +33,8 @@ public class Auction {
 		return this.item;
 	}
 
-	public void placeBid() {
-
+	public void placeBid(double amount, Buyer buyer) {
+		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
 	}
 
 	public void verify() {
