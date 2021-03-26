@@ -7,7 +7,7 @@ public class Auction {
 
 
 	private Seller seller = new Seller();
-	private Buyer buyer = new Buyer();
+	private Buyer buyer;
 	private Item item;
 	private double startPrice, reservePrice;
 	private LocalDate closeDate;
