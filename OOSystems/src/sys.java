@@ -9,6 +9,22 @@ import java.util.Scanner;
 public class sys {
 	private final static Scanner S = new Scanner(System.in);
 
+<<<<<<< Updated upstream
+=======
+	//This of for adding the composition with the class Auction.
+
+	//private static List<Auction> auctions = new LinkedList<Auction>();
+	//The next bit of this code to follow is link 49
+
+
+/*
+	public final List<Auction> auctions;
+	sys(List<Auction> auctions){
+		this.auctions = auctions;
+	}
+	*/
+
+>>>>>>> Stashed changes
 	public static void main(String[] args) {
 
 		String choice = "";
@@ -17,6 +33,28 @@ public class sys {
 		String line = "";
 		String splitBy = ",";
 
+<<<<<<< Updated upstream
+=======
+		//READ ME!!!!!!!
+		// Basically get an error for everywhere it has <Auction> saying
+		// That the symbol cannot be found, Been stuck on it for ages ngl.
+
+		//Loading the CSV files into arrays. 125 in auction
+		//List<Auction> auctions = new ArrayList<Auction>();
+
+
+
+
+	//	List<Auction> auctions = readAuctionsFromCSV(filepath_auction);
+
+		//TESTING
+//		for (Auction a : auctions) {
+		//		System.out.println(a);
+		//}
+
+		//
+
+>>>>>>> Stashed changes
 		do {
 			//Doesnt a user need to login to place an auction?
 			System.out.println("==== Main Menu ====");
@@ -58,6 +96,93 @@ public class sys {
 		System.out.println("Goodbye :)");
 	}
 
+<<<<<<< Updated upstream
+=======
+
+/*	public static List<Auction> readAuctionsFromCSV(String filepath_auction){
+		List<Auction> auctions = new ArrayList<>();
+		Path pathToTheFile = Paths.get(filepath_auction);
+
+		try (BufferedReader br = Files.newBufferedReader(pathToTheFile)){
+			String line = br.readLine();
+			while(line != null){
+				//Splits the line at each , to separate the attributes
+				String[] attributes = line.split(",");
+				Auction auction = createAuction(attributes);
+
+				auctions.add(auction);
+				line = br.readLine();
+				//System.out.println(attributes);
+			//	Auction auction = createAuction(attributes);
+			//	auctions.add(auction);
+			//	line = br.readLine();
+			}
+
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return auctions;
+	}
+
+	private static Auction createAuction(String[] metadata) {
+		String name = metadata[0];
+		String description = metadata[1];
+		Double startPrice = Double.parseDouble(metadata[2]);
+		Double reservePrice = Double.parseDouble(metadata[3]);
+
+		return new Auction(name, description, startPrice, reservePrice);
+	}
+//	private static Auction createAuction(String[] metadata) {
+//		Seller seller = metadata[0];
+//
+//
+//	}
+
+	class Auction {
+		private String name;
+		private String description;
+		private double startPrice;
+		private double reservePrice;
+
+		public Auction(String name, String description, double startPrice, double reservePrice) {
+			this.name = name;
+			this.description = description;
+			this.startPrice = startPrice;
+			this.reservePrice = reservePrice;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public double getStartPrice() {
+		return startPrice;
+	}
+	public void setStartPrice(double startPrice) {
+		this.startPrice = startPrice;
+	}
+	public double getReservePrice() {
+		return startPrice;
+	}
+	public void setReseverePrice(double reservePrice) {
+		this.reservePrice = reservePrice;
+	}
+	@Override
+	public String toString() {
+		return "Auction [Name=" + name + ", Description=" + description + ", Start Price=" +startPrice+ ", Resevere Price=" +reservePrice;
+	}
+} */
+
+
+
+>>>>>>> Stashed changes
 	public static void placeAuction(String filepath_auction) {
 		//just add to it, I can't think off anymore right now
 		System.out.print("Please enter a item name: ");
@@ -155,11 +280,11 @@ public class sys {
 		}
 
 	}
+}
+
 
 	/* public static void logIn(){
 
 	} */
 
 //	public boolean authenticateUser(int)
-
-}
