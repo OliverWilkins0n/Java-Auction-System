@@ -1,5 +1,9 @@
 package Console;
+
 import AuctionSystem.*; // Import everything from AuctionSystem package
+import java.util.Scanner;
+import java.util.LocalDateTime;
+import java.util.List;
 
 public class Console{
   //Start up
@@ -8,7 +12,11 @@ public class Console{
   Menu menu = new Menu();
   String Choice;
 
-  public void start() throws Exception{
-    
+  public Console(){
+    System.out.println("Start");
+  }
+
+  public void auctionSetup() throws Exception{
+    choice = menu.startMenu();
   }
 }
