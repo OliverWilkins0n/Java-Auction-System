@@ -1,3 +1,4 @@
+package AuctionSystem;
 public class Item {
   private String description;
 
