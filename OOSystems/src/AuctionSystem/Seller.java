@@ -1,5 +1,8 @@
 package AuctionSystem;
-public class Seller extends User {
+
+import java.io.Serializable;
+
+public class Seller extends User implements Serializable{
 
   public Seller(String username, String password) {
     super(username, password);

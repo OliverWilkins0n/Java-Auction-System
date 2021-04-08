@@ -1,5 +1,8 @@
 package AuctionSystem;
-public class Buyer extends User {
+
+import java.io.Serializable;
+
+public class Buyer extends User implements Serializable {
 
 
   public Buyer(String username, String password) throws Exception{

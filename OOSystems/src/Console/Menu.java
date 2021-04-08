@@ -2,31 +2,38 @@ package Console;
 
 import java.util.Scanner;
 
+import AuctionSystem.Sys;
+
 public class Menu {
   Scanner S = new Scanner(System.in);
+  //Console console = new Console();
+  Sys system = new Sys();
 
-  public int startMenu() {
+  public String startMenu() {
     System.out.println("==== Main Menu ====");
     System.out.println("1 - Create Account");
     System.out.println("2 - Log In");
     System.out.println("3 - Browse Auctions");
     System.out.println("Q - Quit");
     System.out.println("Input: ");
-
+	System.out.println("Test " + system.getAllUsers());
     String a = S.nextLine().toUpperCase();
 
     switch (a) {
       case "1" :{
-        return 1;
+        return "1";
       }
       case "2" : {
-        return 2;
+        return "2";
       }
       case "3" :{
-        return 3;
+        return "3";
       }
       case "Q" :{
+    	new Console().serialize();  
         System.exit(0);
+        
+        
       }
       default :{
         System.out.println("Invalid responce");
@@ -60,6 +67,7 @@ public class Menu {
         return 4;
       }
       case "Q" :{
+    	new Console().serialize();
         System.exit(0);
       }
       default :{
@@ -103,6 +111,7 @@ public class Menu {
        
       }
       case "Q" :{
+    	new Console().serialize();
         System.exit(0);
       }
       default :{
@@ -135,7 +144,8 @@ public class Menu {
        
       }
       case "Q" :{
-        System.exit(0);
+    	new Console().serialize();
+        System.exit(1);
       }
       default :{
         System.out.println("Invalid responce");
