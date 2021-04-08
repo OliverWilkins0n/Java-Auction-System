@@ -3,7 +3,7 @@ package Console;
 import java.util.Scanner;
 
 public class Menu {
-  Scanner S = new Scanner(system.in);
+  Scanner S = new Scanner(System.in);
 
   public int startMenu() {
     System.out.println("==== Main Menu ====");
@@ -18,15 +18,12 @@ public class Menu {
     switch (a) {
       case "1" :{
         return 1;
-        break;
       }
       case "2" : {
         return 2;
-        break;
       }
       case "3" :{
         return 3;
-        break;
       }
       case "Q" :{
         System.exit(0);
@@ -52,19 +49,15 @@ public class Menu {
     switch (a) {
       case "1" :{
         return 1;
-        break;
       }
       case "2" : {
         return 2;
-        break;
       }
       case "3" :{
         return 3;
-        break;
       }
       case "4" :{
         return 4;
-        break;
       }
       case "Q" :{
         System.exit(0);
@@ -86,28 +79,28 @@ public class Menu {
     System.out.println("5 - Sign out");
     System.out.println("Q - Quit");
 
-    String a = S.nextnextLine().toUpperCase();
+    String a = S.nextLine().toUpperCase();
 
     switch (a) {
       case "1" :{
         return 1;
-        break;
+    
       }
       case "2" : {
         return 2;
-        break;
+      
       }
       case "3" :{
         return 3;
-        break;
+       
       }
       case "4" :{
         return 4;
-        break;
+       
       }
       case "5" :{
         return 5;
-        break;
+       
       }
       case "Q" :{
         System.exit(0);
@@ -125,19 +118,21 @@ public class Menu {
     System.out.println("2 - Delete a user");
     System.out.println("3 - Sign out");
     System.out.println("Q - Quit");
+    
+    String a = S.nextLine().toUpperCase();
 
     switch (a) {
       case "1" :{
         return 1;
-        break;
+        
       }
       case "2" : {
         return 2;
-        break;
+        
       }
       case "3" :{
         return 3;
-        break;
+       
       }
       case "Q" :{
         System.exit(0);

@@ -13,11 +13,11 @@ public final class Auction {
 	private Buyer buyer;
 	private Item item;
 	private double startPrice, reservePrice;
-	private LocalDate closeDate;
+	private LocalDateTime closeDate;
 	private Status status;
 	private List<Bid> bidList = new ArrayList<Bid>();
 
-	public Auction(Seller seller, Item item, double startPrice, double reservePrice, LocalDate closeDate){
+	public Auction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate){
 		this.seller = seller;
 		this.item = item;
 		this.startPrice = startPrice;

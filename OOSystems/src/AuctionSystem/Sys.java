@@ -2,14 +2,15 @@ package AuctionSystem;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public final class Sys {
 
   //Setup Lists all all Users and Auctions
-  private list<Auction> auctions = new LinkedList<Auction>();
+  private List<Auction> auctions = new LinkedList<Auction>();
   private List<User> users = new LinkedList<User>();
 
-  public void createAccount(String username, String password, String accountType){
+  public void createAccount(String username, String password, String accountType) throws Exception{
     if (accountType.equals("SELLER")){
       users.add(new Seller(username, password));
     } else if (accountType.equals("BUYER")){

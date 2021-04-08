@@ -2,7 +2,7 @@ package Console;
 
 import AuctionSystem.*; // Import everything from AuctionSystem package
 import java.util.Scanner;
-import java.util.LocalDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Console{
@@ -10,7 +10,7 @@ public class Console{
   Scanner S = new Scanner(System.in);
   Sys system = new Sys();
   Menu menu = new Menu();
-  String Choice;
+  int choice;
 
   public Console(){
     System.out.println("Start");
