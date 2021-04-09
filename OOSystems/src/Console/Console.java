@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Console{
+public final class Console{
   //Start up
   Scanner S = new Scanner(System.in);
  // Sys system = new Sys();
@@ -22,7 +22,7 @@ public class Console{
   //Lists for Users and Auctions.
   private List<Auction> auctions = new LinkedList<Auction>();
   private Auction auction;
-  public List<User> users = new LinkedList<User>();
+  private List<User> users = new LinkedList<User>();
   private User user;
   public Console(){
     System.out.println("");
@@ -34,6 +34,7 @@ public class Console{
 	    choice = menu.startMenu();
 	    switch(choice) {
 	    case "1": { //User has selected Create Account
+	    	System.out.println("start" +getAllUsers());
 	    	System.out.println("Username: ");
 	    	String username = S.nextLine();
 	    	
@@ -60,8 +61,11 @@ public class Console{
   public void createAccount(String username, String password, String accountType) throws Exception{
 	  if (accountType.equals("S")){
 		  users.add(new Seller(username, password));
+		  serialize(); //Saves the newly created account
+		  System.out.println("I am here");
 	  } else if (accountType.equals("B")) {
 		  users.add(new Buyer(username, password));
+		  serialize(); //Saves the new created account 
 	  }
   }
   
@@ -101,7 +105,6 @@ public class Console{
 		  System.out.println("oos test "+ getAllUsers());
 		  oos.writeObject(getAllUsers()); //Writes all objects to SER file
 		  oos.close();
-		  System.out.println("Succesfully Saved Data, I am a true lier.");
 	  } catch (Exception e) {
 		  System.out.println(e.getMessage());
 	  }

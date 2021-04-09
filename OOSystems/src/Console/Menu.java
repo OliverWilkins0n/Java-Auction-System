@@ -2,12 +2,11 @@ package Console;
 
 import java.util.Scanner;
 
-import AuctionSystem.Sys;
 
 public class Menu {
   Scanner S = new Scanner(System.in);
   //Console console = new Console();
-  Sys system = new Sys();
+  //Sys system = new Sys();
 
   public String startMenu() {
     System.out.println("==== Main Menu ====");
@@ -16,7 +15,6 @@ public class Menu {
     System.out.println("3 - Browse Auctions");
     System.out.println("Q - Quit");
     System.out.println("Input: ");
-	System.out.println("Test " + system.getAllUsers());
     String a = S.nextLine().toUpperCase();
 
     switch (a) {
@@ -67,7 +65,7 @@ public class Menu {
         return 4;
       }
       case "Q" :{
-    	new Console().serialize();
+    	//new Console().serialize();
         System.exit(0);
       }
       default :{
@@ -111,7 +109,7 @@ public class Menu {
        
       }
       case "Q" :{
-    	new Console().serialize();
+    	//new Console().serialize();
         System.exit(0);
       }
       default :{
@@ -144,7 +142,7 @@ public class Menu {
        
       }
       case "Q" :{
-    	new Console().serialize();
+    	//new Console().serialize();
         System.exit(1);
       }
       default :{
