@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public final class Console{
   private List<Auction> auctions = new LinkedList<Auction>();
   private Auction auction;
   private List<User> users = new LinkedList<User>();
+  
   User activeUser = null; // The user that is logged in.
   public Console(){
     System.out.println("");
@@ -30,6 +34,7 @@ public final class Console{
 
   public void auctionSetup() throws Exception{
 	  	deserialize();
+	  	deserializeAuctions();
 	  	do {
 	  		if (currentMenu == "start") {
 			    choice = menu.startMenu();
@@ -115,26 +120,62 @@ public final class Console{
 	  		     * Q - Quit
 	  		     */
 	  			switch (choice) {
-	  	      case "1" :{
+	  	      case "1" :{ // Browse Listings
 	  	        
-	  	      }
-	  	      case "2" : {
+	  	      } case "2" : { // Search For Item
 	  	        
-	  	      }
-	  	      case "3" :{
+	  	      } case "3" :{ // Create auction
+	  	    	  
+	  	    	  //Getting all info for the Auction 
+	  	    	  //System.out.println("Enter Item Name: ");
+	  	    	  //String itemName = S.nextLine();
+	  	    	  System.out.println("Enter Item Description: ");
+	  	    	  String itemDesc = S.nextLine();
+	  	    	  System.out.println("Enter Starting Price: ");
+	  	    	  double startPrice = S.nextDouble();
+	  	    	  System.out.println("Enter Reserve Price: ");
+	  	    	  double reservePrice = S.nextDouble();
+	  	    	  String lkasdjlk = S.nextLine(); // Skips Next Input without this
+	  	    	  System.out.println("Enter End Date dd-MM-yyyy HH:mm : ");
+	  	    	  String closeDate = S.nextLine();
+	  	    	  //Formatting The Date
+	  	    	  // Need to add checking that the date is within 7 days of the current date.
+	  	    	  LocalDateTime dateTime;
+	  	    	  try {
+		  	    	  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		  	    	  dateTime = LocalDateTime.parse(closeDate, formatter);
+	  	    	  } catch (Exception e) {
+	  	    		  System.out.println("Date is in the wrong format!");
+	  	    		  break;
+	  	    	  }
+	  	    	  
+	  	    	  try {
+	  	    		  createAuction((Seller) activeUser, new Item(itemDesc), startPrice, reservePrice, dateTime);
+	  	    		  serializeAuctions();
+	  	    	  } catch (Exception e){
+	  	    		  System.out.println("There was an error creating auction!");
+	  	    	  }
+	  	      
+	  	    	  //System.out.println(getAllAuctions());
+	  	    	  
+	  	    	  
 	  	        
-	  	      }
-	  	      case "Q" :{
+	  	      } case "4" : { //Verify Auction
+	  	    	  
+	  	      } case "5" : {// Sign Out
+	  	    	  activeUser = null;
+	  	    	  currentMenu = "start";
+	  	      } case "Q" :{
 	  	    	menuLoop = false; 
 	  	        System.exit(0);
 	  	        
 	  	        
 	  	      }
-	  			}
+	  		}
 	  			
 	  		} else if (currentMenu == "BUYER") {
 	  			
-	  		} else if (currentMenu == "ADMIN") {
+	  		} else if (currentMenu == "ADMIN") {   
 	  			
 	  		}
 	  	} while (menuLoop = true);
@@ -142,8 +183,17 @@ public final class Console{
   
   
   
-//--------SYS PART OF CONSOLE CLASS------------------------------------
+//--------SYS PART OF CONSOLE CLASS-------------------------------------------------------------------------------------------------------------------
   
+  public List<Auction> getAllAuctions(){
+	  return this.auctions;
+  }
+  
+  public void createAuction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) {
+	auctions.add(new Auction(seller, item, startPrice, reservePrice, closeDate));
+	System.out.println(auctions);
+}
+
   public void createAccount(String username, String password, String accountType) throws Exception{
 	  if (accountType.equals("S")){
 		  users.add(new Seller(username, password));
@@ -169,18 +219,59 @@ public final class Console{
 		  return this.users;
 	  }
   
-  public void deserialize() {
+  public void deserialize() { //deserialize users
 	  ObjectInputStream ois;
 	  
 	  try {
 		  ois = new ObjectInputStream(new FileInputStream("usersSave.ser"));
 		  users = (List<User>)ois.readObject(); //Loads all objects from SER file into linked list
+		 // auctions = (List<Auction>)ois.readObject();
 		  ois.close();
 		 // System.out.println("ois test "+ getAllUsers());
 	  } catch (Exception e) {
 		  System.out.println(e.getMessage());
 	  }
   }
+  
+  public void serialize() { //serialize Users
+	  ObjectOutputStream oos;
+	  
+	  try {
+		  oos = new ObjectOutputStream(new FileOutputStream("usersSave.ser"));
+		  //System.out.println("oos test "+ getAllUsers());
+		  oos.writeObject(getAllUsers()); //Writes all objects to SER file
+		  //oos.writeObject(getAllAuctions());
+		  oos.close();
+	  } catch (Exception e) {
+		  System.out.println("Exception");
+		  System.out.println(e.getMessage());
+	  }
+  }
+  
+  public void serializeAuctions() { // Serialize Auctions
+	  ObjectOutputStream oos;
+	  try {
+		  oos = new ObjectOutputStream(new FileOutputStream("Auctions.ser"));
+		  oos.writeObject(getAllAuctions());
+		  oos.close();
+		  
+	  } catch (Exception e) {
+		  System.out.println(e.getMessage());
+	  }
+  }
+  
+  public void deserializeAuctions() { //deserialize Auctions
+	  ObjectInputStream ois;
+	  
+	  try {
+		  ois = new ObjectInputStream(new FileInputStream("Auctions.ser"));
+		  auctions = (List<Auction>)ois.readObject(); //Loads all objects from SER file into linked list
+		  ois.close();
+	  } catch (Exception e) {
+		  System.out.println(e.getMessage());
+	  }
+  }
+
   
   public User findUser(String username) {
 	  for(User i : users) {
@@ -191,17 +282,4 @@ public final class Console{
 	  return null;
   }
   
-  public void serialize() {
-	  ObjectOutputStream oos;
-	  
-	  try {
-		  oos = new ObjectOutputStream(new FileOutputStream("usersSave.ser"));
-		  System.out.println("oos test "+ getAllUsers());
-		  oos.writeObject(getAllUsers()); //Writes all objects to SER file
-		  oos.close();
-	  } catch (Exception e) {
-		  System.out.println(e.getMessage());
-	  }
-  }
-
 }

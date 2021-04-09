@@ -3,9 +3,10 @@ package AuctionSystem;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public final class Auction {
+public final class Auction implements Serializable {
 
 
 
