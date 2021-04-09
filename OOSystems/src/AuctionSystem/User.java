@@ -18,4 +18,8 @@ public abstract class User implements Serializable{
   public String getUsername() {
 	  return this.username;
   }
+  
+  public boolean validatePassword(String password) {
+	  return this.password.equals(password);
+  }
 }

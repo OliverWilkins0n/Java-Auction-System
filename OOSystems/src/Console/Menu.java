@@ -9,6 +9,7 @@ public class Menu {
   //Sys system = new Sys();
 
   public String startMenu() {
+	System.out.println("");
     System.out.println("==== Main Menu ====");
     System.out.println("1 - Create Account");
     System.out.println("2 - Log In");
@@ -76,8 +77,8 @@ public class Menu {
 
   }
 
-  public int sellerMenu(){
-    System.out.println("====Seller Menu====");
+  public String sellerMenu(){
+    //System.out.println("====Seller Menu====");
     System.out.println("1 - Browse my listings");
     System.out.println("2 - Search for Item by name");
     System.out.println("3 - Create Auction");
@@ -89,23 +90,23 @@ public class Menu {
 
     switch (a) {
       case "1" :{
-        return 1;
+        return "1";
     
       }
       case "2" : {
-        return 2;
+        return "2";
       
       }
       case "3" :{
-        return 3;
+        return "3";
        
       }
       case "4" :{
-        return 4;
+        return "4";
        
       }
       case "5" :{
-        return 5;
+        return "5";
        
       }
       case "Q" :{
@@ -151,4 +152,8 @@ public class Menu {
       }
       }
   }
+  
+//  public User getMenuUsername(){ IDK think got different way. to display username at top of menu's
+//	  
+// }
 }
