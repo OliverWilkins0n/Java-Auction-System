@@ -1,5 +1,5 @@
 package AuctionSystem;
 
 public enum Status{
-  PENDING, BLOCKED, ACTIVE, CLOSED;
+  PENDING, CLOSED, BLOCKED, ACTIVE;
 }

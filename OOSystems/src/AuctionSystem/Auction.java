@@ -11,7 +11,7 @@ public final class Auction implements Serializable {
 
 
 	private Seller seller;
-	private Buyer buyer;
+	private Buyer auctionWinner;
 	private Item item;
 	private double startPrice, reservePrice;
 	private LocalDateTime closeDate;
@@ -43,6 +43,10 @@ public final class Auction implements Serializable {
 	public Seller getSeller(){
 		return this.seller;
 	}
+	
+	public Buyer getAuctionWinner() {
+		return this.auctionWinner;
+	}
 
 	public Item getItem(){
 		return this.item;
@@ -68,12 +72,12 @@ public final class Auction implements Serializable {
 		}
 	}
 
-//	public void placeBid(double amount, Buyer buyer) {
-//		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
-//	}
-
 	public void placeBid(double amount, Buyer buyer) throws Exception{
-		bids.add(new Bid(amount, buyer, LocalDateTime.now()));
+		if (getStatus().equals(Status.ACTIVE)) {
+			bids.add(new Bid(amount, buyer, LocalDateTime.now()));
+		} else {
+			throw new Exception("The Auction is not active.");
+		}
 	}
 
 	public List<Bid> getBids(){
@@ -81,20 +85,32 @@ public final class Auction implements Serializable {
 	}
 
 	public void verify() {
-
+		this.status = Status.ACTIVE;
 	}
 
+	//need to add bid winner to the close function
 	public void close() {
-
+		this.status = Status.CLOSED;
+	}
+	
+	public Status getStatus() {
+		return this.status;
 	}
 
-//	public boolean isBlocked() {
-//
-//	}
-	//
+	public boolean isBlocked() {
+		if(this.status.equals(Status.BLOCKED)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public void setBlocked() {
 		this.status = Status.BLOCKED;
+	}
+	
+	public void setUnblock() {
+		this.status = Status.ACTIVE;
 	}
 
 }

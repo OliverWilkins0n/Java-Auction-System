@@ -170,11 +170,39 @@ public final class Console{
 	  	    	  } catch (Exception e){
 	  	    		  System.out.println("There was an error creating auction!");
 	  	    	  }
+	  	    	  //verifying auction
+	  	    	  System.out.println("Auction succesfully created! Press 0 to verfiy this auction, press any other key to return. "
+	  	    	  		+ "You can verfiy the auction later under the verfication menu.");
+	  	    	  String auctionVerify = S.nextLine();
+	  	    
+	  	    	  if (auctionVerify.toUpperCase().charAt(0) == '0') {
+	  	    		getAllAuctions().get(getAllAuctions().size() -1).verify();
+	  	    		 break;
+	  	    	  } else {
 	  	    	  break;
-	  	      	  	    	  
+	  	    	  }
 	  	    	  
 	  	      } case "3" : { //Verify Auction
+	  	    	  System.out.println("======= PENDING AUCTIONS ========");
+	  	    	  for (Auction auc : getAllAuctions()) {
+	  	    		  if (auc.getSeller().getUsername().equals(activeUser.getUsername())) {
+	  	    			  if (auc.getStatus().equals(Status.PENDING)) {
+	  	    				System.out.println("Item Number: (" + getAllAuctions().indexOf(auc) + "): " + auc.toString());
+	  	    			  }
+	  	    		  }
+	  	    	  }
+	  	    	  System.out.println("\n Enter the item number of auction to verify: ");
+	  	    	  String indexString = S.nextLine();
+	  	    	  byte index;
 	  	    	  
+	  	    	  try {
+	  	    		  index = Byte.parseByte(indexString);
+	  	    	  } catch(Exception e) {
+	  	    		  System.out.println("Error! Please enter a valid item number.");
+	  	    		  break;
+	  	    	  }
+	  	    	  getAllAuctions().get(index).verify();
+	  	    	  System.out.println("Auction \"" + getAllAuctions().get(index).getItem().getName() + "\" verified successfully.");
 	  	    	  break;
 	  	    	  
 	  	      } case "4" : {// Sign Out
@@ -276,7 +304,7 @@ public final class Console{
   
 //--------SYS PART OF CONSOLE CLASS-------------------------------------------------------------------------------------------------------------------
   
-  public List<Auction> getAllAuctions(){
+  public List<Auction> getAllAuctions() {
 	  return this.auctions;
   }
   
