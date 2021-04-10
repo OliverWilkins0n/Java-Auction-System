@@ -18,13 +18,17 @@ public final class Auction implements Serializable {
 	private Status status;
 	private List<Bid> bids = new ArrayList<Bid>();
 
-	public Auction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate){
+	public Auction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) throws Exception{
 		this.seller = seller;
 		this.item = item;
 		this.startPrice = startPrice;
 		this.reservePrice = reservePrice;
 		//Need to make sure that the close date is within 7 days and not in the past
-		this.closeDate = closeDate;
+		if (this.closeDateValidation(closeDate)) {
+			this.closeDate = closeDate;
+		} else {
+			throw new Exception("Close date should be within 7 days and not in the past!");
+		}
 		this.status = Status.PENDING;
 	}
 	
@@ -52,6 +56,10 @@ public final class Auction implements Serializable {
 	public LocalDateTime getCloseDate() {
 		return this.closeDate;
 	}
+	
+	public Status getStatus() {
+        return this.status;
+    }
 
 
 	//verifying the date, that it is within 7 days and not in the past

@@ -142,9 +142,8 @@ public final class Console{
 	  	      } case "2" :{ // Create auction
 	  	    	  
 	  	    	  //Getting all info for the Auction 
+	  	    	 
 	  	    	  System.out.println("Enter Item Name: ");
-	  	    	  String itemName = S.nextLine();
-	  	    	  System.out.println("Enter Item Description: ");
 	  	    	  String itemDesc = S.nextLine();
 	  	    	  System.out.println("Enter Starting Price: ");
 	  	    	  double startPrice = S.nextDouble();
@@ -169,15 +168,17 @@ public final class Console{
 	  	    		  serializeAuctions();
 	  	    	  } catch (Exception e){
 	  	    		  System.out.println("There was an error creating auction!");
+	  	    		  break;
 	  	    	  }
 	  	    	  //verifying auction
-	  	    	  System.out.println("Auction succesfully created! Press 0 to verfiy this auction, press any other key to return. "
-	  	    	  		+ "You can verfiy the auction later under the verfication menu.");
+	  	    	  System.out.println("Item Desc: "+itemDesc+"   Start Price: "+startPrice+"   Reserve Price: "+reservePrice+"   Close Date: "+closeDate);
+	  	    	  System.out.println("If you are happy with the above, please enter verify to verify your auction:");
 	  	    	  String auctionVerify = S.nextLine();
 	  	    
-	  	    	  if (auctionVerify.toUpperCase().charAt(0) == '0') {
-	  	    		getAllAuctions().get(getAllAuctions().size() -1).verify();
-	  	    		 break;
+	  	    	  if (auctionVerify.toUpperCase().equals("VERIFY")) {
+	  	    		  getAllAuctions().get(getAllAuctions().size() -1).verify();
+	  	    		  System.out.println("Auction Succesfully Verified");
+	  	    		  break;
 	  	    	  } else {
 	  	    	  break;
 	  	    	  }
@@ -187,22 +188,33 @@ public final class Console{
 	  	    	  for (Auction auc : getAllAuctions()) {
 	  	    		  if (auc.getSeller().getUsername().equals(activeUser.getUsername())) {
 	  	    			  if (auc.getStatus().equals(Status.PENDING)) {
-	  	    				System.out.println("Item Number: (" + getAllAuctions().indexOf(auc) + "): " + auc.toString());
+	  	    				System.out.println(auc.getItem().getName());
 	  	    			  }
 	  	    		  }
 	  	    	  }
-	  	    	  System.out.println("\n Enter the item number of auction to verify: ");
-	  	    	  String indexString = S.nextLine();
-	  	    	  byte index;
-	  	    	  
-	  	    	  try {
+	  	    	  System.out.println("Enter the name of Item to verify: ");
+	  	    	  String choosenName = S.nextLine().toLowerCase();
+	  	    	  boolean itemFound = false;
+	  	    	  /*try {
 	  	    		  index = Byte.parseByte(indexString);
 	  	    	  } catch(Exception e) {
 	  	    		  System.out.println("Error! Please enter a valid item number.");
 	  	    		  break;
 	  	    	  }
-	  	    	  getAllAuctions().get(index).verify();
-	  	    	  System.out.println("Auction \"" + getAllAuctions().get(index).getItem().getName() + "\" verified successfully.");
+	  	    	  */
+	  	    	  for (Auction auc : getAllAuctions()) {  //finds the item with the name and verifies it.
+	  	    		  if(auc.getItem().getName().toLowerCase().equals(choosenName)){
+	  	    			  System.out.println(auc.getItem().getName()+" has been verified");
+	  	    			  auc.verify();
+	  	    			  itemFound = true;
+	  	    		  }
+	  	    	 if (!itemFound) {
+	  	    		 System.out.println("Item could not be found! Please Check name is entered correctly!");
+	  	    	 }
+	  	    		  
+	  	    	  }
+	  	    	 // getAllAuctions().get(index).verify();
+	  	    	  //System.out.println("Auction \"" + getAllAuctions().get(index).getItem().getName() + "\" verified successfully.");
 	  	    	  break;
 	  	    	  
 	  	      } case "4" : {// Sign Out
