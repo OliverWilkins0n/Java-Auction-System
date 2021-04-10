@@ -80,7 +80,7 @@ public final class Auction implements Serializable {
 	}
 
 	public void verify() {
-
+		this.status = Status.ACTIVE;
 	}
 
 	public void close() {
