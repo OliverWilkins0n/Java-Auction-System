@@ -16,7 +16,7 @@ public final class Auction implements Serializable {
 	private double startPrice, reservePrice;
 	private LocalDateTime closeDate;
 	private Status status;
-	private List<Bid> bidList = new ArrayList<Bid>();
+	private List<Bid> bids = new ArrayList<Bid>();
 
 	public Auction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate){
 		this.seller = seller;
@@ -27,6 +27,11 @@ public final class Auction implements Serializable {
 		this.closeDate = closeDate;
 		this.status = Status.PENDING;
 	}
+	
+	public String toString() {
+		String theString = ("Item Name: "+this.item.getName()+" Start Price: "+this.startPrice+" Reserve Price: "+this.reservePrice+" Closing Date: "+this.closeDate);
+		return theString;
+	}
 
 	//Get Functions
 	public Seller getSeller(){
@@ -36,17 +41,28 @@ public final class Auction implements Serializable {
 	public Item getItem(){
 		return this.item;
 	}
+	
+	public double getStartPrice() {
+		return this.startPrice;
+	}
+	public double getReservePrice() {
+		return this.reservePrice;
+	}
+	
+	public LocalDateTime getCloseDate() {
+		return this.closeDate;
+	}
 
 //	public void placeBid(double amount, Buyer buyer) {
 //		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
 //	}
 
 	public void placeBid(double amount, Buyer buyer) throws Exception{
-		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
+		bids.add(new Bid(amount, buyer, LocalDateTime.now()));
 	}
 
 	public List<Bid> getBids(){
-		return this.bidList;
+		return this.bids;
 	}
 
 	public void verify() {

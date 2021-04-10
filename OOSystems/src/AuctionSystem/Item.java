@@ -16,5 +16,9 @@ public class Item implements Serializable {
   public void setDescription(String description){
     this.description = description;
   }
+  
+  public String getName() {
+	  return this.description;
+  }
 
 }

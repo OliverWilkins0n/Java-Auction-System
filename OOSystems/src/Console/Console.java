@@ -100,10 +100,20 @@ public final class Console{
 			    	} else {
 			    		System.out.print("Password Entered is incorrect!");
 			    	}
+			    	break;
 			    	
+			    } case "3": { //Browse All Auctions
+		  	    	System.out.println("All current Listings: ");
+		  	    	List<Auction> allAuctions = getAllAuctions(); //Creates List of all auctions
+		  	    	for (Auction i : allAuctions) {
+		  	    		System.out.println(i.toString());  //Prints out all Auctions
+		  	    	}	  	    	
+		  	        break;
 			    	
 				} case "Q": {
 					menuLoop = false;
+					System.exit(0);
+					break;
 				}
 			  }
 			    
@@ -113,18 +123,23 @@ public final class Console{
 	  			choice = menu.sellerMenu();
 	  		    
 	  		    /* 1 - Browse Listings
-	  		     * 2 - Search for item by name
-	  		     * 3 - create auction
-	  		     * 4 - verify auction
-	  		     * 5 - sign out
+	  		     * 2 - create auction
+	  		     * 3 - verify auction
+	  		     * 4 - sign out
 	  		     * Q - Quit
 	  		     */
 	  			switch (choice) {
 	  	      case "1" :{ // Browse Listings
-	  	        
-	  	      } case "2" : { // Search For Item
-	  	        
-	  	      } case "3" :{ // Create auction
+	  	    	  System.out.println("All your current Listings: ");
+	  	    	  List<Auction> usersAuctions = getAllAuctions(); //Creates List of all auctions
+	  	    	  for (Auction i : usersAuctions) {	//Loops through all the auctions
+	  	    		  if(i.getSeller().getUsername().equals(activeUser.getUsername())){ //Checks for auctions made from the user logged in
+	  	    			  System.out.println(i.toString());
+	  	    		  }
+	  	    	  }
+	  	    	  break;
+	  	    	   
+	  	      } case "2" :{ // Create auction
 	  	    	  
 	  	    	  //Getting all info for the Auction 
 	  	    	  //System.out.println("Enter Item Name: ");
@@ -155,16 +170,17 @@ public final class Console{
 	  	    	  } catch (Exception e){
 	  	    		  System.out.println("There was an error creating auction!");
 	  	    	  }
-	  	      
-	  	    	  //System.out.println(getAllAuctions());
+	  	    	  break;
+	  	      	  	    	  
 	  	    	  
+	  	      } case "3" : { //Verify Auction
 	  	    	  
-	  	        
-	  	      } case "4" : { //Verify Auction
+	  	    	  break;
 	  	    	  
-	  	      } case "5" : {// Sign Out
+	  	      } case "4" : {// Sign Out
 	  	    	  activeUser = null;
 	  	    	  currentMenu = "start";
+	  	    	  break;
 	  	      } case "Q" :{
 	  	    	menuLoop = false; 
 	  	        System.exit(0);
@@ -174,6 +190,52 @@ public final class Console{
 	  		}
 	  			
 	  		} else if (currentMenu == "BUYER") {
+	  			
+	  		    /* 1 - Browse Auctions
+	  		     * 2 - Place Bid
+	  		     * 3 - Search for Item by name
+	  		     * 4 - Sign out
+	  		     * Q - Quit
+	  		     * 
+	  		     */
+	  			System.out.println("======="+activeUser.getUsername()+"'s Buyer Menu========");
+	  			choice = menu.buyerMenu();
+	  		    switch (choice) {
+	  	      case "1" :{ //Browse Auctions
+	  	    	System.out.println("All current Listings: ");
+	  	    	List<Auction> allAuctions = getAllAuctions(); //Creates List of all auctions
+	  	    	for (Auction i : allAuctions) {
+	  	    		System.out.println(i.toString());  //Prints out all Auctions
+	  	    	}	  	    	
+	  	        break;
+	  	        
+	  	      }
+	  	      case "2" : {
+	  	    	  break;
+	  	        
+	  	      }
+	  	      case "3" :{ //Search For Item By Name
+	  	    	  System.out.println("Enter Item name: ");
+	  	    	  String selectedItem = S.nextLine();
+	  	    	  List<Auction> allAuctions = getAllAuctions(); //Gets List of all Auctions
+	  	    	  for (Auction i : allAuctions) {   // Loops through every auction in list
+	  	    		  if (i.getItem().getName().equals(selectedItem)){ //Checks to see if the item desc is the same as one selected.
+	  	    			  System.out.println(i.toString()); 
+	  	    		  }
+	  	    	  }
+	  	    	  break;
+	  	      }
+	  	      case "4" :{
+	  	    	activeUser = null;
+	  	    	currentMenu = "start";
+	  	    	break;
+	  	      }
+	  	      case "Q" :{
+	  	    	
+	  	        System.exit(0);
+	  	      }
+	  		
+	  		}
 	  			
 	  		} else if (currentMenu == "ADMIN") {   
 	  			
@@ -191,7 +253,7 @@ public final class Console{
   
   public void createAuction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) {
 	auctions.add(new Auction(seller, item, startPrice, reservePrice, closeDate));
-	System.out.println(auctions);
+	//System.out.println(auctions);
 }
 
   public void createAccount(String username, String password, String accountType) throws Exception{

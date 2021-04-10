@@ -42,11 +42,10 @@ public class Menu {
 
   }
 
-  public int buyerMenu(){
-    System.out.println("====Buyer Menu====");
-    System.out.println("1 - Search Item by name");
+  public String buyerMenu(){
+    System.out.println("1 - Browse Auctions");
     System.out.println("2 - Place Bid");
-    System.out.println("3 - Browse Auctions");
+    System.out.println("3 - Search For Auction By Name");
     System.out.println("4 - Sign out");
     System.out.println("Q - Quit");
 
@@ -54,16 +53,16 @@ public class Menu {
 
     switch (a) {
       case "1" :{
-        return 1;
+        return "1";
       }
       case "2" : {
-        return 2;
+        return "2";
       }
       case "3" :{
-        return 3;
+        return "3";
       }
       case "4" :{
-        return 4;
+        return "4";
       }
       case "Q" :{
     	//new Console().serialize();
@@ -80,10 +79,9 @@ public class Menu {
   public String sellerMenu(){
     //System.out.println("====Seller Menu====");
     System.out.println("1 - Browse my listings");
-    System.out.println("2 - Search for Item by name");
-    System.out.println("3 - Create Auction");
-    System.out.println("4 - Verify Auction");
-    System.out.println("5 - Sign out");
+    System.out.println("2 - Create Auction");
+    System.out.println("3 - Verify Auction");
+    System.out.println("4 - Sign out");
     System.out.println("Q - Quit");
 
     String a = S.nextLine().toUpperCase();
@@ -103,10 +101,6 @@ public class Menu {
       }
       case "4" :{
         return "4";
-       
-      }
-      case "5" :{
-        return "5";
        
       }
       case "Q" :{
@@ -153,7 +147,7 @@ public class Menu {
       }
   }
   
-//  public User getMenuUsername(){ IDK think got different way. to display username at top of menu's
+//  public User getMenuUsername(){ Not needed for now.
 //	  
 // }
 }
