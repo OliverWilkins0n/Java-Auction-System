@@ -53,9 +53,15 @@ public final class Auction implements Serializable {
 		return this.closeDate;
 	}
 
-//	public void placeBid(double amount, Buyer buyer) {
-//		bidList.add(new Bid(amount, buyer, LocalDateTime.now()));
-//	}
+
+	//verifying the date, that it is within 7 days and not in the past
+	public boolean closeDateValidation(LocalDateTime inputDate) {
+		if(inputDate.isAfter(LocalDateTime.now()) && inputDate.isBefore(LocalDateTime.now().plusDays(7))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public void placeBid(double amount, Buyer buyer) throws Exception{
 		bids.add(new Bid(amount, buyer, LocalDateTime.now()));
