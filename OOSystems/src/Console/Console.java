@@ -142,8 +142,8 @@ public final class Console{
 	  	      } case "2" :{ // Create auction
 	  	    	  
 	  	    	  //Getting all info for the Auction 
-	  	    	  //System.out.println("Enter Item Name: ");
-	  	    	  //String itemName = S.nextLine();
+	  	    	  System.out.println("Enter Item Name: ");
+	  	    	  String itemName = S.nextLine();
 	  	    	  System.out.println("Enter Item Description: ");
 	  	    	  String itemDesc = S.nextLine();
 	  	    	  System.out.println("Enter Starting Price: ");
@@ -152,20 +152,20 @@ public final class Console{
 	  	    	  double reservePrice = S.nextDouble();
 	  	    	  String lkasdjlk = S.nextLine(); // Skips Next Input without this
 	  	    	  System.out.println("Enter End Date dd-MM-yyyy HH:mm : ");
-	  	    	  String closeDate = S.nextLine();
+	  	    	  String closeDateString = S.nextLine();
 	  	    	  //Formatting The Date
 	  	    	  // Need to add checking that the date is within 7 days of the current date.
-	  	    	  LocalDateTime dateTime;
+	  	    	  LocalDateTime closeDate;
 	  	    	  try {
 		  	    	  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		  	    	  dateTime = LocalDateTime.parse(closeDate, formatter);
+		  	    	  closeDate = LocalDateTime.parse(closeDateString, formatter);
 	  	    	  } catch (Exception e) {
 	  	    		  System.out.println("Date is in the wrong format!");
 	  	    		  break;
 	  	    	  }
 	  	    	  
 	  	    	  try {
-	  	    		  createAuction((Seller) activeUser, new Item(itemDesc), startPrice, reservePrice, dateTime);
+	  	    		  createAuction((Seller) activeUser, new Item(itemDesc), startPrice, reservePrice, closeDate);
 	  	    		  serializeAuctions();
 	  	    	  } catch (Exception e){
 	  	    		  System.out.println("There was an error creating auction!");
@@ -238,10 +238,39 @@ public final class Console{
 	  		}
 	  			
 	  		} else if (currentMenu == "ADMIN") {   
-	  			
-	  		}
-	  	} while (menuLoop = true);
-  }
+	  	      /*  System.out.println();
+                choice = menu.adminMenu();
+                switch(choice) {
+              case "1":{ //Delete an Auction 
+                    break;
+
+                }
+              case "2" : { // Delete a user
+                    break;
+                  }
+              case "3" :{ //List all Sellers
+            	  List<User> allUsers = getAllUsers();
+                  for (User u : allUsers()) {
+                	  
+                	  
+                	  
+                     // System.out.println(users.getUsername());
+                  }
+
+                  /*System.out.println("All Sellers: ");
+                  for (User users: getAllSellers(choice)) {
+                      System.out.println(users.toString());
+                  }
+                      break;
+
+            }
+                  case "4" :{ //Sign out
+                      break;
+            }
+        }*/
+            }
+        } while (menuLoop = true);
+}
   
   
   
@@ -251,7 +280,7 @@ public final class Console{
 	  return this.auctions;
   }
   
-  public void createAuction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) {
+  public void createAuction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) throws Exception {
 	auctions.add(new Auction(seller, item, startPrice, reservePrice, closeDate));
 	//System.out.println(auctions);
 }
@@ -266,7 +295,7 @@ public final class Console{
 	  }
   }
   
-  public void placeAuction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate){
+  public void placeAuction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) throws Exception{
 	  auctions.add(new Auction(seller, item, startPrice, reservePrice, closeDate));
 	  }
 
