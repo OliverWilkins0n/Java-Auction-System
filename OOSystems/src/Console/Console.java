@@ -195,26 +195,24 @@ public final class Console{
 	  	    	  System.out.println("Enter the name of Item to verify: ");
 	  	    	  String choosenName = S.nextLine().toLowerCase();
 	  	    	  boolean itemFound = false;
-	  	    	  /*try {
-	  	    		  index = Byte.parseByte(indexString);
-	  	    	  } catch(Exception e) {
-	  	    		  System.out.println("Error! Please enter a valid item number.");
-	  	    		  break;
-	  	    	  }
-	  	    	  */
+
 	  	    	  for (Auction auc : getAllAuctions()) {  //finds the item with the name and verifies it.
 	  	    		  if(auc.getItem().getName().toLowerCase().equals(choosenName)){
 	  	    			  System.out.println(auc.getItem().getName()+" has been verified");
 	  	    			  auc.verify();
 	  	    			  itemFound = true;
+	  	    			  serializeAuctions();
+	  	    			  break;
 	  	    		  }
-	  	    	 if (!itemFound) {
-	  	    		 System.out.println("Item could not be found! Please Check name is entered correctly!");
+	  	    		  
+	  	    	 
 	  	    	 }
+	  	    	  
+	  	    	  if (!itemFound) {
+	  	    		 System.out.println("Item could not be found! Please Check name is entered correctly!");
 	  	    		  
 	  	    	  }
-	  	    	 // getAllAuctions().get(index).verify();
-	  	    	  //System.out.println("Auction \"" + getAllAuctions().get(index).getItem().getName() + "\" verified successfully.");
+	  	    	 
 	  	    	  break;
 	  	    	  
 	  	      } case "4" : {// Sign Out
