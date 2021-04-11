@@ -87,6 +87,10 @@ public final class Auction implements Serializable {
 	public void close() {
 		
 	}
+	
+	public void deleteAuction() {
+		
+	}
 
 	public boolean isBlocked() {
 		if (this.status.equals(Status.BLOCKED)) {

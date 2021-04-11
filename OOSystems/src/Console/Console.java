@@ -90,6 +90,7 @@ public final class Console{
 			    	if(findUser(username).validatePassword(password)) { //validates the password
 			    		activeUser = findUser(username);
 			    		
+			    		
 			    		if (activeUser instanceof Buyer) {
 			    			currentMenu = "BUYER";
 			    		} else if(activeUser instanceof Seller) {
@@ -106,7 +107,8 @@ public final class Console{
 		  	    	System.out.println("All current Listings: ");
 		  	    	List<Auction> allAuctions = getAllAuctions(); //Creates List of all auctions
 		  	    	for (Auction i : allAuctions) {
-		  	    		System.out.println(i.toString());  //Prints out all Auctions
+		  	    		if(i.getStatus().equals(Status.ACTIVE))
+		  	    			System.out.println(i.toString());  //Prints out all Auctions
 		  	    	}	  	    	
 		  	        break;
 			    	
@@ -291,14 +293,45 @@ public final class Console{
 	  			System.out.println("======"+activeUser.getUsername()+"'s Admin Menu========");
                 choice = menu.adminMenu();
                 switch(choice) {
-              case "1":{ //Delete an Auction 
-                    break;
+              case "1":{ //Delete an Auction
+            	  List<Auction> allAuctions = getAllAuctions();
+            	  for (Auction i : allAuctions) {   // Loops through every auction in list
+	  	    			  System.out.println(i.toString()); 	  	    			 
+	  	    	  }
+            	  System.out.println("Enter Item Name to Be Deleted: ");
+            	  String itemChoice = S.nextLine().toLowerCase();
+            	  
+            	  for (Auction i : auctions) {
+            		  if(i.getItem().getName().toLowerCase().equals(itemChoice)) {
+            			  auctions.remove(i);
+            			  System.out.println("Auction Succesfully Removed");
+            			  serializeAuctions();
+            	  }
 
                 }
+            	  break;
+              }
               case "2" : { // Delete a user
-                    break;
+            	  System.out.println("Enter the username of the user that you want to delete: ");
+                  String userDelete = S.nextLine();
+                      for(User i : users) {
+                          if(i.getUsername().toLowerCase().equals(userDelete));
+                          users.remove(i);
+                          System.out.println("User deleted succesfully!");
+                          serialize();
+
+                  }
+                 break;
+            	  
                   }
               case "3" :{ //List all Sellers
+            	  
+            	  List<User> allUsers = getAllUsers();
+                  for (User u : allUsers) {
+                      if(u instanceof Seller) {
+                          System.out.println(u.getUsername());
+                      }
+                  }
                       break;
 
             }
@@ -312,7 +345,6 @@ public final class Console{
       	  	        System.exit(0);
       	  	      }
         }
-                break;
             }
         } while (menuLoop = true);
 }
