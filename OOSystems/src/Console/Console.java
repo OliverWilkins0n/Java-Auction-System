@@ -183,6 +183,7 @@ public final class Console{
 	  	    	  if (auctionVerify.toUpperCase().equals("VERIFY")) {
 	  	    		  getAllAuctions().get(getAllAuctions().size() -1).verify();
 	  	    		  System.out.println("Auction Succesfully Verified");
+	  	    		  serializeAuctions();
 	  	    		  break;
 	  	    	  } else {
 	  	    	  break;
@@ -237,7 +238,8 @@ public final class Console{
 	  		    /* 1 - Browse Auctions
 	  		     * 2 - Place Bid
 	  		     * 3 - Search for Item by name
-	  		     * 4 - Sign out
+	  		     * 4 - See Current Bids on Item
+	  		     * 5 - Sign out
 	  		     * Q - Quit
 	  		     * 
 	  		     */
@@ -253,7 +255,21 @@ public final class Console{
 	  	        break;
 	  	        
 	  	      }
-	  	      case "2" : {
+	  	      case "2" : {// Place Bid
+	  	    	  System.out.println("Enter Item Name: ");
+	  	    	  String bidName = S.nextLine();
+	  	    	  System.out.println("Enter Bid: ");
+	  	    	  double bidPrice = S.nextDouble();
+	  	    	  String weirdFix = S.nextLine();
+	  	    	  
+	  	    	  for (Auction i : auctions) {
+	  	    		  if(i.getItem().getName().toLowerCase().equals(bidName.toLowerCase())) {
+	  	    			  i.placeBid(bidPrice, (Buyer) activeUser);
+	  	    			  serializeAuctions();
+	  	    		  }
+	  	    	  }
+	  	   
+	  	    	  
 	  	    	  break;
 	  	        
 	  	      }
@@ -267,8 +283,21 @@ public final class Console{
 	  	    		  }
 	  	    	  }
 	  	    	  break;
+	  	      } case "4" : {// Seen Current Bids On Item
+	  	    	  //List<Auction> allAuctions = getAllAuctions();
+	  	    	  
+	  	    	  System.out.println("Enter Item name: ");
+	  	    	  String itemName = S.nextLine().toLowerCase();
+	  	    	  
+	  	    	  for(Auction i : auctions) {
+	  	    		  if(i.getItem().getName().toLowerCase().equals(itemName)) {
+	  	    			  System.out.println(i.getBids().toString());
+	  	    		  }
+	  	    	  }
+	  	    	  break;
+	  	    	  
 	  	      }
-	  	      case "4" :{
+	  	      case "5" :{
 	  	    	activeUser = null;
 	  	    	currentMenu = "start";
 	  	    	break;
@@ -334,11 +363,35 @@ public final class Console{
                   }
                       break;
 
+            } case "4" :{ //List all Buyers
+            	List<User> allUsers = getAllUsers();
+            	for(User u : allUsers) {
+            		if(u instanceof Buyer) {
+            			System.out.println(u.getUsername());
+            		}
+            	}
+            } case "5" :{ //Block and unblock User
+            	 System.out.println("Do you want to [B]lock or [U]nblock a user: ");
+                 String bOrU = S.nextLine().toUpperCase();
+                 if (bOrU == "B") {
+
+                 System.out.println("Enter the username of the user that you want to block: ");
+                 String userBlock = S.nextLine().toLowerCase();
+                             findUser(userBlock).setBlocked();
+                             System.out.println("User blocked successfully.");
+                 } else if (bOrU == "U") {
+                     System.out.println("Enter the username of the user that you want to unblock: ");
+                     String userUnblock = S.nextLine().toLowerCase();
+                                 findUser(userUnblock).setUnblocked();
+                                 System.out.println("User unblocked successfully.");
+                 } else {
+                    break;
+                 }
             }
-                  case "4" :{ //Sign out
-                	  activeUser = null;
-    	  	    	  currentMenu = "start";
-    	  	    	  break;
+               case "6" :{ //Sign out
+            	   activeUser = null;
+            	   currentMenu = "start";
+            	   break;
             }
                   case "Q" :{
       	  	    	
@@ -352,6 +405,8 @@ public final class Console{
   
   
 //--------SYS PART OF CONSOLE CLASS-------------------------------------------------------------------------------------------------------------------
+  
+
   
   public List<Auction> getAllAuctions() {
 	  return this.auctions;

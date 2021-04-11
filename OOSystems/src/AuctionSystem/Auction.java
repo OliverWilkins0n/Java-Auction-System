@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -73,7 +74,35 @@ public final class Auction implements Serializable {
 	}
 
 	public void placeBid(double amount, Buyer buyer) throws Exception{
-		bids.add(new Bid(amount, buyer, LocalDateTime.now()));
+		Bid currentMaxBid = getHighestBid();
+		System.out.println("current Max "+currentMaxBid);
+		if (Objects.isNull(currentMaxBid)){
+			bids.add(new Bid(amount, buyer, LocalDateTime.now()));
+		} else if (amount > (currentMaxBid.getAmount()*1.1)) {
+			bids.add(new Bid(amount, buyer, LocalDateTime.now()));
+			System.out.println("Bid Placed");
+		} else {
+			System.out.println("The bid needs to be 10% greater then the current highest bid");
+		}
+
+	}
+	
+	public Bid getHighestBid() {
+		List<Bid> allBids = getBids();
+		//System.out.print("GetHighestBid "+allBids);
+		Bid currentHighest = null;
+		if(!allBids.isEmpty()){
+			for(Bid i : allBids) {
+				if(i.getAmount() > currentHighest.getAmount()) {
+					currentHighest = i;
+				} else if(i.getAmount() <= currentHighest.getAmount()) {
+					System.out.println("m");
+				}
+			}
+		} else {
+			return currentHighest;
+		}
+		return currentHighest;
 	}
 
 	public List<Bid> getBids(){

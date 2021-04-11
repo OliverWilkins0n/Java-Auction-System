@@ -46,7 +46,8 @@ public class Menu {
     System.out.println("1 - Browse Auctions");
     System.out.println("2 - Place Bid");
     System.out.println("3 - Search For Auction By Name");
-    System.out.println("4 - Sign out");
+    System.out.println("4 - See Current Bids on Item");
+    System.out.println("5 - Sign out");
     System.out.println("Q - Quit");
 
     String a = S.nextLine().toUpperCase();
@@ -63,6 +64,9 @@ public class Menu {
       }
       case "4" :{
         return "4";
+      }
+      case "5" :{
+    	return "5";
       }
       case "Q" :{
     	//new Console().serialize();
@@ -119,13 +123,15 @@ public class Menu {
     System.out.println("1 - Delete an Auction");
     System.out.println("2 - Delete a user");
     System.out.println("3 - List all Sellers");
-    System.out.println("4 - Sign out");
+    System.out.println("4 - List all Buyers");
+    System.out.println("5 - Block/Unblock User");
+    System.out.println("6 - Sign out");
     System.out.println("Q - Quit");
     
     String a = S.nextLine().toUpperCase();
 
     switch (a) {
-      case "1" :{
+      case "1" :{ 
         return "1";
         
       }
@@ -139,6 +145,12 @@ public class Menu {
       }
       case "4" :{
     	  return "4";
+      }
+      case "5" :{
+    	  return "5";
+      }
+      case "6" :{
+    	  return "6";
       }
       case "Q" :{
     	//new Console().serialize();

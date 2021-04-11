@@ -6,6 +6,7 @@ import java.util.List;
 
 public abstract class User implements Serializable{
   protected String username, password;
+  private Status st;
   
  // private List<Seller> sellers = new ArrayList<Seller>();
  // private List<Buyer> buyers = new ArrayList<Buyer>();
@@ -22,4 +23,12 @@ public abstract class User implements Serializable{
   public boolean validatePassword(String password) {
 	  return this.password.equals(password);
   }
+  
+  public void setBlocked() {
+      this.st = Status.BLOCKED;
+      }
+
+  public void setUnblocked() {
+      this.st = Status.ACTIVE;
+      }
 }
