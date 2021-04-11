@@ -157,7 +157,6 @@ public final class Console{
 	  	    	  LocalDateTime closeDate;
 	  	    	  try {
 	  	    		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-	  	    		//DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		  	    	  closeDate = LocalDateTime.parse(closeDateString, formatter);
 	  	    	  } catch (Exception e) {
 	  	    		  System.out.println("Date is in the wrong format!");
@@ -281,16 +280,15 @@ public final class Console{
 	  			
 	  		} else if (currentMenu == "ADMIN") {   
 	  			
-	  			
-	  	     /* 1 - Delete an Auction
+	  			/* 1 - Delete an Auction
 	  		    2 - Delete a user
-	  		    3 - Sign out
+	  		    3 - List all Sellers
+	  		    4 - Sign out
 	  		    Q - Quit 
 	  		    */
 	  			
 	  			
-	  			
-	  	      System.out.println();
+	  			System.out.println("======"+activeUser.getUsername()+"'s Admin Menu========");
                 choice = menu.adminMenu();
                 switch(choice) {
               case "1":{ //Delete an Auction 
@@ -305,13 +303,16 @@ public final class Console{
 
             }
                   case "4" :{ //Sign out
-                      break;
+                	  activeUser = null;
+    	  	    	  currentMenu = "start";
+    	  	    	  break;
             }
                   case "Q" :{
       	  	    	
       	  	        System.exit(0);
       	  	      }
         }
+                break;
             }
         } while (menuLoop = true);
 }
@@ -330,13 +331,16 @@ public final class Console{
 }
 
   public void createAccount(String username, String password, String accountType) throws Exception{
-	  if (accountType.equals("S")){
-		  users.add(new Seller(username, password));
-		  serialize(); //Saves the newly created account
-	  } else if (accountType.equals("B")) {
-		  users.add(new Buyer(username, password));
-		  serialize(); //Saves the new created account 
-	  }
+      if (accountType.equals("S")){
+          users.add(new Seller(username, password));
+          serialize(); //Saves the newly created account
+      } else if (accountType.equals("B")) {
+          users.add(new Buyer(username, password));
+          serialize(); //Saves the new created account 
+      } else if (accountType.equals("A")) {
+          users.add(new Admin(username, password));
+          serialize();
+      }
   }
   
   public void placeAuction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) throws Exception{

@@ -118,7 +118,8 @@ public class Menu {
     System.out.println("====Admin Menu====");
     System.out.println("1 - Delete an Auction");
     System.out.println("2 - Delete a user");
-    System.out.println("3 - Sign out");
+    System.out.println("3 - List all Sellers");
+    System.out.println("4 - Sign out");
     System.out.println("Q - Quit");
     
     String a = S.nextLine().toUpperCase();
@@ -135,6 +136,9 @@ public class Menu {
       case "3" :{
         return "3";
        
+      }
+      case "4" :{
+    	  return "4";
       }
       case "Q" :{
     	//new Console().serialize();
