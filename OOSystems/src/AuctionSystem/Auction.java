@@ -1,6 +1,7 @@
 package AuctionSystem;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -84,16 +85,24 @@ public final class Auction implements Serializable {
 	}
 
 	public void close() {
-
+		
 	}
 
-//	public boolean isBlocked() {
-//
-//	}
-	//
+	public boolean isBlocked() {
+		if (this.status.equals(Status.BLOCKED)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 
 	public void setBlocked() {
-
+		this.status = Status.BLOCKED;
 	}
-
+	
+	public void setUnblock() {
+		this.status = Status.ACTIVE;
+	}
+	
 }

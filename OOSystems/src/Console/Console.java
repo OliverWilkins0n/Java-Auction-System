@@ -156,7 +156,8 @@ public final class Console{
 	  	    	  // Need to add checking that the date is within 7 days of the current date.
 	  	    	  LocalDateTime closeDate;
 	  	    	  try {
-		  	    	  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+	  	    		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+	  	    		//DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		  	    	  closeDate = LocalDateTime.parse(closeDateString, formatter);
 	  	    	  } catch (Exception e) {
 	  	    		  System.out.println("Date is in the wrong format!");
@@ -170,8 +171,11 @@ public final class Console{
 	  	    		  System.out.println("There was an error creating auction!");
 	  	    		  break;
 	  	    	  }
+	  	    	  //formatting date to output in the right format
+	  	    	  String formatedCloseDate = closeDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+	  	    	  System.out.println(formatedCloseDate);
 	  	    	  //verifying auction
-	  	    	  System.out.println("Item Desc: "+itemDesc+"   Start Price: "+startPrice+"   Reserve Price: "+reservePrice+"   Close Date: "+closeDate);
+	  	    	  System.out.println("Item Desc: "+itemDesc+"   Start Price: "+startPrice+"   Reserve Price: "+reservePrice+"   Close Date: "+formatedCloseDate);
 	  	    	  System.out.println("If you are happy with the above, please enter verify to verify your auction:");
 	  	    	  String auctionVerify = S.nextLine();
 	  	    
@@ -277,7 +281,7 @@ public final class Console{
 	  			
 	  		} else if (currentMenu == "ADMIN") {   
 	  			
-	  			//
+	  			
 	  	     /* 1 - Delete an Auction
 	  		    2 - Delete a user
 	  		    3 - Sign out
@@ -286,7 +290,7 @@ public final class Console{
 	  			
 	  			
 	  			
-	  	      /*  System.out.println();
+	  	      System.out.println();
                 choice = menu.adminMenu();
                 switch(choice) {
               case "1":{ //Delete an Auction 
@@ -297,25 +301,17 @@ public final class Console{
                     break;
                   }
               case "3" :{ //List all Sellers
-            	  List<User> allUsers = getAllUsers();
-                  for (User u : allUsers()) {
-                	  
-                	  
-                	  
-                     // System.out.println(users.getUsername());
-                  }
-
-                  /*System.out.println("All Sellers: ");
-                  for (User users: getAllSellers(choice)) {
-                      System.out.println(users.toString());
-                  }
                       break;
 
             }
                   case "4" :{ //Sign out
                       break;
             }
-        }*/
+                  case "Q" :{
+      	  	    	
+      	  	        System.exit(0);
+      	  	      }
+        }
             }
         } while (menuLoop = true);
 }

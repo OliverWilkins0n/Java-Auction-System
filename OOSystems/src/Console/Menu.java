@@ -114,7 +114,7 @@ public class Menu {
       }
   }
 
-  public int adminMenu(){
+  public String adminMenu(){
     System.out.println("====Admin Menu====");
     System.out.println("1 - Delete an Auction");
     System.out.println("2 - Delete a user");
@@ -125,15 +125,15 @@ public class Menu {
 
     switch (a) {
       case "1" :{
-        return 1;
+        return "1";
         
       }
       case "2" : {
-        return 2;
+        return "2";
         
       }
       case "3" :{
-        return 3;
+        return "3";
        
       }
       case "Q" :{
