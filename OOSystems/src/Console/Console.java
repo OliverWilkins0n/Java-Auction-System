@@ -379,23 +379,25 @@ public final class Console{
             	}
             	break;
             } case "5" :{ //Block and unblock User
-            	 System.out.println("Do you want to [B]lock or [U]nblock a user: ");
-                 String bOrU = S.nextLine().toUpperCase();
-                 if (bOrU == "B") {
+                System.out.println("Do you want to [B]lock or [U]nblock a user: ");
+                String blockOrUnblock = S.nextLine().toUpperCase();
+                if (blockOrUnblock.equals("B")) {
+                System.out.println("Enter the username of the user that you want to block: ");
+                String userBlock = S.nextLine().toLowerCase();
+                            findUser(userBlock).setBlocked();
+                            System.out.println("User blocked successfully.");
+                            break;
+                } else if (blockOrUnblock.equals("U")) {
 
-                 System.out.println("Enter the username of the user that you want to block: ");
-                 String userBlock = S.nextLine().toLowerCase();
-                             findUser(userBlock).setBlocked();
-                             System.out.println("User blocked successfully.");
-                 } else if (bOrU == "U") {
-                     System.out.println("Enter the username of the user that you want to unblock: ");
-                     String userUnblock = S.nextLine().toLowerCase();
-                                 findUser(userUnblock).setUnblocked();
-                                 System.out.println("User unblocked successfully.");
-                 } else {
-                    break;
-                 }
-            }
+                    System.out.println("Enter the username of the user that you want to unblock: ");
+                    String userUnblock = S.nextLine().toLowerCase();
+                                findUser(userUnblock).setUnblocked();
+                                System.out.println("User unblocked successfully.");
+                               break;
+               } else {
+                 break;
+                }
+           }
                case "6" :{ //Sign out
             	   activeUser = null;
             	   currentMenu = "start";
