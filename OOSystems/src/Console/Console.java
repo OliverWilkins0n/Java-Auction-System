@@ -28,6 +28,7 @@ public final class Console{
   private List<Auction> auctions = new LinkedList<Auction>();
   private Auction auction;
   private List<User> users = new LinkedList<User>();
+ private User user;
   
   User activeUser = null; // The user that is logged in.
   public Console(){
@@ -79,9 +80,17 @@ public final class Console{
 			    	
 			    } case "2": { //log in menu
 			    	
+			    	
+			    /*	if (user.isBlocked()) {
+			    		System.out.println("You cannot log in as your account is blocked.");
+			    	} else { */
+			    	
 			    	System.out.println("Enter Username: ");
 			    	String username = S.nextLine();
-			    	
+			    	//if (findUser(username).isBlocked()) {
+	  	    		//		System.out.println("You cannot log in as your account is blocked.");
+	  	    			//  } else {
+	  	    				  
 			    	if(findUser(username) == null) { //Searches to see if the username is valid.
 			    		System.out.println("User does not exist.");
 			    		break;
@@ -92,7 +101,6 @@ public final class Console{
 			    	if(findUser(username).validatePassword(password)) { //validates the password
 			    		activeUser = findUser(username);
 			    		
-			    		
 			    		if (activeUser instanceof Buyer) {
 			    			currentMenu = "BUYER";
 			    		} else if(activeUser instanceof Seller) {
@@ -100,11 +108,12 @@ public final class Console{
 			    		} else if (activeUser instanceof Admin) {// still need to sort out the admin part.
 			    			currentMenu = "ADMIN";
 			    		}
+			  	 
 			    	} else {
 			    		System.out.print("Password Entered is incorrect!");
 			    	}
 			    	break;
-			    	
+	  	    	  //} 
 			    } case "3": { //Browse All Auctions
 		  	    	System.out.println("All current Listings: ");
 		  	    	List<Auction> allAuctions = getAllAuctions(); //Creates List of all auctions
@@ -204,6 +213,8 @@ public final class Console{
 	  	    	  String choosenName = S.nextLine().toLowerCase();
 	  	    	  boolean itemFound = false;
 
+	  	    	  
+	  	    	  //add date formatation and make sure status is changed to ACTIVE
 	  	    	  for (Auction auc : getAllAuctions()) {  //finds the item with the name and verifies it.
 	  	    		  if(auc.getItem().getName().toLowerCase().equals(choosenName)){
 	  	    			  System.out.println(auc.getItem().getName()+" has been verified");
@@ -379,6 +390,11 @@ public final class Console{
             	}
             	break;
             } case "5" :{ //Block and unblock User
+            	System.out.println("Current Users and their Status");
+            	List<User> allUsers = getAllUsers();
+            	for(User u : allUsers) {
+            			System.out.println(u.getUsername() +" | "+ u.getStatus());
+            	}
                 System.out.println("Do you want to [B]lock or [U]nblock a user: ");
                 String blockOrUnblock = S.nextLine().toUpperCase();
                 if (blockOrUnblock.equals("B")) {
@@ -398,7 +414,32 @@ public final class Console{
                  break;
                 }
            }
-               case "6" :{ //Sign out
+            case "6" : { //Block Auction
+            	System.out.println("Current Auctions and their Status");
+            	List<Auction> allAuctions = getAllAuctions();
+            	for(Auction a : allAuctions) {
+            			System.out.println(a.getItem().getName() +" | "+ a.getStatus());
+            	}
+            	
+            	
+                System.out.println("Do you want to [B]lock or [U]nblock an auction: ");
+                String blockOrUnblock2 = S.nextLine().toUpperCase();
+                if (blockOrUnblock2.equals("B")) {
+                System.out.println("Enter the name of the auction that you want to block: ");
+                String auctionBlock = S.nextLine().toLowerCase();
+                	findAuction(auctionBlock).setBlocked();
+                            System.out.println("Auction blocked successfully.");
+                            break;
+                } else if (blockOrUnblock2.equals("U")) {
+
+                    System.out.println("Enter the name of the auction that you want to unblock: ");
+                    String auctionUnblock = S.nextLine().toLowerCase();
+                    	findAuction(auctionUnblock).setUnblocked();
+                                System.out.println("Auction unblocked successfully.");
+                               break;
+                }
+                
+            } case "7" :{ //Sign out
             	   activeUser = null;
             	   currentMenu = "start";
             	   break;
@@ -513,6 +554,15 @@ public final class Console{
 	  for(User i : users) {
 		  if(i.getUsername().equals(username)){
 			  return i;
+		  }
+	  }
+	  return null;
+  }
+  
+  public Auction findAuction(String item) {
+	  for(Auction a : auctions) {
+		  if(a.getItem().getName().equals(item)) {
+			  return a;
 		  }
 	  }
 	  return null;

@@ -14,10 +14,15 @@ public abstract class User implements Serializable{
   protected User(String username, String password){
     this.username = username;
     this.password = password;
+    this.st = Status.ACTIVE;
   }
   
   public String getUsername() {
 	  return this.username;
+  }
+  
+  public Status getStatus() {
+	  return this.st;
   }
   
   public boolean validatePassword(String password) {
@@ -27,6 +32,15 @@ public abstract class User implements Serializable{
   public void setBlocked() {
       this.st = Status.BLOCKED;
       }
+  
+ public boolean isBlocked() {
+	  if (this.st.equals(Status.BLOCKED)) {
+		  return true;
+	  } else {
+		  return false;
+	  }
+		  
+  } 
 
   public void setUnblocked() {
       this.st = Status.ACTIVE;

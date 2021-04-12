@@ -37,7 +37,7 @@ public final class Auction implements Serializable {
 	}
 	
 	public String toString() {
-		String theString = ("Item Name: "+this.item.getName()+" Start Price: "+this.startPrice+" Reserve Price: "+this.reservePrice+" Closing Date: "+this.closeDate);
+		String theString = ("Item Name: "+this.item.getName()+" Status: "+this.getStatus()+" Start Price: "+this.startPrice+" Reserve Price: "+this.reservePrice+" Closing Date: "+this.closeDate);
 		return theString;
 	}
 
@@ -145,7 +145,7 @@ public final class Auction implements Serializable {
 		this.status = Status.BLOCKED;
 	}
 	
-	public void setUnblock() {
+	public void setUnblocked() {
 		this.status = Status.ACTIVE;
 	}
 	

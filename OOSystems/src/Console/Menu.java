@@ -125,7 +125,8 @@ public class Menu {
     System.out.println("3 - List all Sellers");
     System.out.println("4 - List all Buyers");
     System.out.println("5 - Block/Unblock User");
-    System.out.println("6 - Sign out");
+    System.out.println("6 - Block Auction");
+    System.out.println("7 - Sign out");
     System.out.println("Q - Quit");
     
     String a = S.nextLine().toUpperCase();
@@ -151,6 +152,10 @@ public class Menu {
       }
       case "6" :{
     	  return "6";
+      }
+      
+      case "7" :{
+    	  return "7";
       }
       case "Q" :{
     	//new Console().serialize();
