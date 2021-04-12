@@ -79,17 +79,15 @@ public final class Console{
 			    	
 			    	
 			    } case "2": { //log in menu
-			    	
-			    	
-			    /*	if (user.isBlocked()) {
-			    		System.out.println("You cannot log in as your account is blocked.");
-			    	} else { */
-			    	
+			    	   	
 			    	System.out.println("Enter Username: ");
 			    	String username = S.nextLine();
-			    	//if (findUser(username).isBlocked()) {
-	  	    		//		System.out.println("You cannot log in as your account is blocked.");
-	  	    			//  } else {
+			    	
+			    	//stop user from logging in if he's blocked
+			    	if (findUser(username).isBlocked()) {
+	  	    			System.out.println("You cannot log in as your account is blocked.");
+	  	    			break;
+	  	    			} else {
 	  	    				  
 			    	if(findUser(username) == null) { //Searches to see if the username is valid.
 			    		System.out.println("User does not exist.");
@@ -113,7 +111,7 @@ public final class Console{
 			    		System.out.print("Password Entered is incorrect!");
 			    	}
 			    	break;
-	  	    	  //} 
+	  	    	  } 
 			    } case "3": { //Browse All Auctions
 		  	    	System.out.println("All current Listings: ");
 		  	    	List<Auction> allAuctions = getAllAuctions(); //Creates List of all auctions
@@ -129,8 +127,7 @@ public final class Console{
 					break;
 				}
 			  }
-			    
-			    
+			        
 	  		} else if (currentMenu == "SELLER") { //Seller Section
 	  			System.out.println("====="+activeUser.getUsername()+"'s Sellers menu=======");
 	  			choice = menu.sellerMenu();
@@ -328,16 +325,19 @@ public final class Console{
 	  		}
 	  			
 	  		} else if (currentMenu == "ADMIN") {   
-	  			
+	  		
 	  			/* 1 - Delete an Auction
 	  		    2 - Delete a user
 	  		    3 - List all Sellers
-	  		    4 - Sign out
+	  		    4 - List all Buyers
+	  		    5 - Block/Unblock User
+	  		    6 - Block Auction
+	  		    7 - Sign out
 	  		    Q - Quit 
 	  		    */
 	  			
 	  			
-	  			System.out.println("======"+activeUser.getUsername()+"'s Admin Menu========");
+	  			System.out.println("======"+activeUser.getUsername()+"'s Admin Menu========"); 
                 choice = menu.adminMenu();
                 switch(choice) {
               case "1":{ //Delete an Auction
@@ -393,7 +393,7 @@ public final class Console{
             	System.out.println("Current Users and their Status");
             	List<User> allUsers = getAllUsers();
             	for(User u : allUsers) {
-            			System.out.println(u.getUsername() +" | "+ u.getStatus());
+            			System.out.println(u.getUsername() +" | "+ u.getStatus());  //outputs current users + their current status
             	}
                 System.out.println("Do you want to [B]lock or [U]nblock a user: ");
                 String blockOrUnblock = S.nextLine().toUpperCase();
@@ -402,6 +402,7 @@ public final class Console{
                 String userBlock = S.nextLine().toLowerCase();
                             findUser(userBlock).setBlocked();
                             System.out.println("User blocked successfully.");
+                            serialize();
                             break;
                 } else if (blockOrUnblock.equals("U")) {
 
@@ -409,6 +410,7 @@ public final class Console{
                     String userUnblock = S.nextLine().toLowerCase();
                                 findUser(userUnblock).setUnblocked();
                                 System.out.println("User unblocked successfully.");
+                                serialize();
                                break;
                } else {
                  break;
@@ -418,24 +420,27 @@ public final class Console{
             	System.out.println("Current Auctions and their Status");
             	List<Auction> allAuctions = getAllAuctions();
             	for(Auction a : allAuctions) {
-            			System.out.println(a.getItem().getName() +" | "+ a.getStatus());
+            			System.out.println(a.getItem().getName() +" | "+ a.getStatus());	//outputs current auctions + their current status
             	}
             	
             	
                 System.out.println("Do you want to [B]lock or [U]nblock an auction: ");
                 String blockOrUnblock2 = S.nextLine().toUpperCase();
                 if (blockOrUnblock2.equals("B")) {
+                	
                 System.out.println("Enter the name of the auction that you want to block: ");
                 String auctionBlock = S.nextLine().toLowerCase();
-                	findAuction(auctionBlock).setBlocked();
+                	findAuction(auctionBlock).setBlocked(); //set status
                             System.out.println("Auction blocked successfully.");
+                            serializeAuctions(); //save status
                             break;
                 } else if (blockOrUnblock2.equals("U")) {
 
                     System.out.println("Enter the name of the auction that you want to unblock: ");
                     String auctionUnblock = S.nextLine().toLowerCase();
-                    	findAuction(auctionUnblock).setUnblocked();
+                    	findAuction(auctionUnblock).setUnblocked(); //set status
                                 System.out.println("Auction unblocked successfully.");
+                                serializeAuctions(); //save status
                                break;
                 }
                 
