@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -285,18 +287,23 @@ public final class Console{
 	  	    	  break;
 	  	      } case "4" : {// Seen Current Bids On Item
 	  	    	  //List<Auction> allAuctions = getAllAuctions();
+	  	    	  //Bid highestBid = null;
 	  	    	  
 	  	    	  System.out.println("Enter Item name: ");
 	  	    	  String itemName = S.nextLine().toLowerCase();
-	  	    	  
+	  	    	  System.out.println("====Bidding History====");
 	  	    	  for(Auction i : auctions) {
 	  	    		  if(i.getItem().getName().toLowerCase().equals(itemName)) {
 	  	    			  System.out.println(i.getBids().toString());
+	  	    			 // highestBid = i.getHighestBid();	  	    				  
+	  	    			  }
 	  	    		  }
 	  	    	  }
+	  	    	 // System.out.println("====Current Highest Bid=====");
+	  	    	  //System.out.println(highestBid.)
 	  	    	  break;
 	  	    	  
-	  	      }
+	  	      
 	  	      case "5" :{
 	  	    	activeUser = null;
 	  	    	currentMenu = "start";
@@ -331,10 +338,10 @@ public final class Console{
             	  String itemChoice = S.nextLine().toLowerCase();
             	  
             	  for (Auction i : auctions) {
-            		  if(i.getItem().getName().toLowerCase().equals(itemChoice)) {
-            			  auctions.remove(i);
+            		  if(i.getItem().getName().toLowerCase().equals(itemChoice)) { //Finds the auction choosen from the list
+            			  auctions.remove(i); //removes the auction
             			  System.out.println("Auction Succesfully Removed");
-            			  serializeAuctions();
+            			  serializeAuctions(); //Updates the save
             	  }
 
                 }
@@ -370,6 +377,7 @@ public final class Console{
             			System.out.println(u.getUsername());
             		}
             	}
+            	break;
             } case "5" :{ //Block and unblock User
             	 System.out.println("Do you want to [B]lock or [U]nblock a user: ");
                  String bOrU = S.nextLine().toUpperCase();
