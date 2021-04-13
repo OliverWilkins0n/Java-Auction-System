@@ -37,7 +37,8 @@ public final class Console{
 
   public void auctionSetup() throws Exception{
 	  	deserialize();
-	  	deserializeAuctions();
+	  	deserializeAuctions();	
+	  	
 	  	do {
 	  		if (currentMenu == "start") {
 			    choice = menu.startMenu();
@@ -46,7 +47,7 @@ public final class Console{
 			    	
 			    	//System.out.println("start" +getAllUsers()); testing.
 			    	System.out.println("Username: ");
-			    	String username = S.nextLine();
+			    	String username = S.nextLine().toLowerCase(); //needs to be lowercase otherwise blocking function has error
 			    	
 			    	System.out.println("Password: ");
 			    	String password = S.nextLine();
@@ -81,10 +82,10 @@ public final class Console{
 			    } case "2": { //log in menu
 			    	   	
 			    	System.out.println("Enter Username: ");
-			    	String username = S.nextLine();
+			    	String username = S.nextLine().toLowerCase();
 			    	
 			    	//stop user from logging in if he's blocked
-			    	if (findUser(username).isBlocked()) {
+			    	if (findUser(username).isBlocked()) { //check if user is blocked
 	  	    			System.out.println("You cannot log in as your account is blocked.");
 	  	    			break;
 	  	    			} else {
@@ -154,7 +155,7 @@ public final class Console{
 	  	    	  //Getting all info for the Auction 
 	  	    	 
 	  	    	  System.out.println("Enter Item Name: ");
-	  	    	  String itemDesc = S.nextLine();
+	  	    	  String itemDesc = S.nextLine().toLowerCase(); //needs to be lowercase otherwise blocking function has error
 	  	    	  System.out.println("Enter Starting Price: ");
 	  	    	  double startPrice = S.nextDouble();
 	  	    	  System.out.println("Enter Reserve Price: ");
@@ -363,9 +364,9 @@ public final class Console{
                   String userDelete = S.nextLine();
                       for(User i : users) {
                           if(i.getUsername().toLowerCase().equals(userDelete));
-                          users.remove(i);
+                          users.remove(i); //removes user
                           System.out.println("User deleted succesfully!");
-                          serialize();
+                          serialize(); //Updates the save
 
                   }
                  break;
@@ -400,17 +401,17 @@ public final class Console{
                 if (blockOrUnblock.equals("B")) {
                 System.out.println("Enter the username of the user that you want to block: ");
                 String userBlock = S.nextLine().toLowerCase();
-                            findUser(userBlock).setBlocked();
+                            findUser(userBlock).setBlocked(); //set status
                             System.out.println("User blocked successfully.");
-                            serialize();
+                            serialize(); //save status
                             break;
                 } else if (blockOrUnblock.equals("U")) {
 
                     System.out.println("Enter the username of the user that you want to unblock: ");
                     String userUnblock = S.nextLine().toLowerCase();
-                                findUser(userUnblock).setUnblocked();
+                                findUser(userUnblock).setUnblocked(); //set status
                                 System.out.println("User unblocked successfully.");
-                                serialize();
+                                serialize(); //save status
                                break;
                } else {
                  break;
@@ -442,6 +443,8 @@ public final class Console{
                                 System.out.println("Auction unblocked successfully.");
                                 serializeAuctions(); //save status
                                break;
+                } else {
+                	break;
                 }
                 
             } case "7" :{ //Sign out
@@ -449,7 +452,7 @@ public final class Console{
             	   currentMenu = "start";
             	   break;
             }
-                  case "Q" :{
+           		case "Q" :{
       	  	    	
       	  	        System.exit(0);
       	  	      }
