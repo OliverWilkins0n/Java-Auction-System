@@ -48,6 +48,12 @@ public final class Console{
 			    	//System.out.println("start" +getAllUsers()); testing.
 			    	System.out.println("Username: ");
 			    	String username = S.nextLine().toLowerCase(); //needs to be lowercase otherwise blocking function has error
+
+			    	if (users.contains(findUser(username))) {
+			    		System.out.println("Username is already taken, please choose another username."); //check if username is already taken, if so returns error
+			    		break;
+			    	} else {
+			    	
 			    	
 			    	System.out.println("Password: ");
 			    	String password = S.nextLine();
@@ -67,6 +73,7 @@ public final class Console{
 			    	createAccount(username, password, accountType);
 			    	System.out.println("Account has been Created.");
 			    	
+			    	
 			    	activeUser = findUser(username);  //Logs in after account has been created.
 			    	if (accountType == "S") {    //Goes to the correct menu after creating an account
 			    		currentMenu = "SELLER";
@@ -77,8 +84,8 @@ public final class Console{
 			    	}
 			    	System.out.println(getAllUsers());
 			    	break;
-			    	
-			    	
+			   
+			    	}
 			    } case "2": { //log in menu
 			    	   	
 			    	System.out.println("Enter Username: ");
@@ -221,8 +228,6 @@ public final class Console{
 	  	    			  serializeAuctions();
 	  	    			  break;
 	  	    		  }
-	  	    		  
-	  	    	 
 	  	    	 }
 	  	    	  
 	  	    	  if (!itemFound) {
@@ -238,8 +243,7 @@ public final class Console{
 	  	    	  break;
 	  	      } case "Q" :{
 	  	    	menuLoop = false; 
-	  	        System.exit(0);
-	  	        
+	  	        System.exit(0);        
 	  	        
 	  	      }
 	  		}
@@ -279,10 +283,7 @@ public final class Console{
 	  	    			  serializeAuctions();
 	  	    		  }
 	  	    	  }
-	  	   
-	  	    	  
-	  	    	  break;
-	  	        
+	  	    	  break;    
 	  	      }
 	  	      case "3" :{ //Search For Item By Name
 	  	    	  System.out.println("Enter Item name: ");
@@ -360,16 +361,22 @@ public final class Console{
             	  break;
               }
               case "2" : { // Delete a user
+            	  System.out.println("All Users: ");
+            	  List<User> allUsers = getAllUsers();
+                  for (User u : allUsers) {  // Loops through every user in list
+	  	    			  System.out.println(u.getUsername()); 
+                  }
             	  System.out.println("Enter the username of the user that you want to delete: ");
                   String userDelete = S.nextLine();
                       for(User i : users) {
-                          if(i.getUsername().toLowerCase().equals(userDelete));
+                          if(i.getUsername().toLowerCase().equals(userDelete)) {
                           users.remove(i); //removes user
                           System.out.println("User deleted succesfully!");
                           serialize(); //Updates the save
-
+                          break;
                   }
-                 break;
+                      }
+                 
             	  
                   }
               case "3" :{ //List all Sellers
