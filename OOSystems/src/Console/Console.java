@@ -20,17 +20,22 @@ public final class Console{
   Scanner S = new Scanner(System.in);
  // Sys system = new Sys();
   Menu menu = new Menu();
+  //Console console = new Console();
   String choice;
   boolean menuLoop = true; //Loops menu until Quit is chosen on the home page
   String currentMenu = "start";
   
   //Lists for Users and Auctions.
   private List<Auction> auctions = new LinkedList<Auction>();
-  private Auction auction;
+  //private Auction auction;
   private List<User> users = new LinkedList<User>();
- private User user;
+  //private User user;
+  //Thread thread = new Thread(new AuctionCheck(auctions, 1));/*Creates the thread, to check for when
+  															//	an auction ends*/
+  	
   
   User activeUser = null; // The user that is logged in.
+  
   public Console(){
     System.out.println("");
   }
@@ -38,6 +43,9 @@ public final class Console{
   public void auctionSetup() throws Exception{
 	  	deserialize();
 	  	deserializeAuctions();	
+	  	
+	    Thread thread = new Thread(new AuctionCheck(auctions, 1));
+	  	thread.start();
 	  	
 	  	do {
 	  		if (currentMenu == "start") {
@@ -92,10 +100,10 @@ public final class Console{
 			    	String username = S.nextLine().toLowerCase();
 			    	
 			    	//stop user from logging in if he's blocked
-			    	if (findUser(username).isBlocked()) { //check if user is blocked
-	  	    			System.out.println("You cannot log in as your account is blocked.");
-	  	    			break;
-	  	    			} else {
+			    	//if (findUser(username).isBlocked()) { //check if user is blocked
+	  	    			//System.out.println("You cannot log in as your account is blocked.");
+	  	    			//break;
+	  	    			//} else {
 	  	    				  
 			    	if(findUser(username) == null) { //Searches to see if the username is valid.
 			    		System.out.println("User does not exist.");
@@ -119,7 +127,7 @@ public final class Console{
 			    		System.out.print("Password Entered is incorrect!");
 			    	}
 			    	break;
-	  	    	  } 
+	  	    	   
 			    } case "3": { //Browse All Auctions
 		  	    	System.out.println("All current Listings: ");
 		  	    	List<Auction> allAuctions = getAllAuctions(); //Creates List of all auctions
@@ -131,6 +139,7 @@ public final class Console{
 			    	
 				} case "Q": {
 					menuLoop = false;
+					thread.destroy();;
 					System.exit(0);
 					break;
 				}
@@ -195,6 +204,9 @@ public final class Console{
 	  	    	  System.out.println("Item Desc: "+itemDesc+"   Start Price: "+startPrice+"   Reserve Price: "+reservePrice+"   Close Date: "+formatedCloseDate);
 	  	    	  System.out.println("If you are happy with the above, please enter verify to verify your auction:");
 	  	    	  String auctionVerify = S.nextLine();
+	  	    	  thread.stop();
+	  	    	  thread.destroy();
+	  	    	  Thread thread2 = new Thread(new AuctionCheck(auctions, 1));
 	  	    
 	  	    	  if (auctionVerify.toUpperCase().equals("VERIFY")) {
 	  	    		  getAllAuctions().get(getAllAuctions().size() -1).verify();
@@ -243,6 +255,7 @@ public final class Console{
 	  	    	  break;
 	  	      } case "Q" :{
 	  	    	menuLoop = false; 
+	  	    	thread.destroy();
 	  	        System.exit(0);        
 	  	        
 	  	      }
@@ -320,7 +333,7 @@ public final class Console{
 	  	    	break;
 	  	      }
 	  	      case "Q" :{
-	  	    	
+	  	    	thread.destroy();
 	  	        System.exit(0);
 	  	      }
 	  		

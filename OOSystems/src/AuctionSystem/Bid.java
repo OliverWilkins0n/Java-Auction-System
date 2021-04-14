@@ -48,6 +48,11 @@ public void setIsWinnerNotified(Boolean noti) {
 	this.noti = noti;
 }
 
+public void notifyWinner(Seller winner, Item item) {
+	System.out.println("Auction for: "+item.getName());
+	System.out.println("Winner of auction: "+winner.getUsername());
+}
+
 
 public Bid getCurrentMaxBid() {
 	//Bid highestBid = Collections.max(getBids(), Comparator.comparing(o -> o.getAmount()));

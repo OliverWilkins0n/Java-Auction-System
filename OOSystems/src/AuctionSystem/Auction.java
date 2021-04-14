@@ -125,7 +125,11 @@ public final class Auction implements Serializable {
 	}
 
 	public void close() {
-		
+		this.status = Status.CLOSED;
+		Bid bidWinner = getHighestBid();
+		if(bidWinner != null) {
+			this.buyer = bidWinner.getBuyer();
+		}
 	}
 	
 	public void deleteAuction() {

@@ -9,9 +9,10 @@ public class Buyer extends User implements Serializable {
     super(username, password);
   }
 
-  public void Victory(){
-      System.out.println("Winner of auction: ");
-
+  public void Victory(Buyer winner, Item item){
+//	  System.out.println("Auction for: "+item.getName());
+ //     System.out.println("Winner of auction: "+winner.getUsername()); Not needed it is done in bid
+//
   }
 
 }
