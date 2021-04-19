@@ -26,7 +26,7 @@ public final class Console{
   String currentMenu = "start";
   
   //Lists for Users and Auctions.
-  private List<Auction> auctions = new LinkedList<Auction>();
+  public List<Auction> auctions = Collections.synchronizedList(new LinkedList<Auction>());
   //private Auction auction;
   private List<User> users = new LinkedList<User>();
   //private User user;
@@ -44,7 +44,10 @@ public final class Console{
 
   public void auctionSetup() throws Exception{
 	  	
-		//  if (firstTimeStart) {
+		  if (firstTimeStart) {
+	  
+	  		deserialize();
+	  		deserializeAuctions();	
 
 	          //Creating Sample Admin
 	          createAccount("admin", "_Admin", "A");
@@ -59,20 +62,26 @@ public final class Console{
 	          createAccount("andy", "_Andy", "B");
 
 	          //Creating Sample Auctions
-	          createAuction((Seller) findUser("sorren"), new Item("iPad"), 200, 300, LocalDateTime.now().plusMinutes(2));
-	          createAuction((Seller) findUser("glyn"), new Item("Bike"), 80, 120, LocalDateTime.now().plusMinutes(2));
+	          createAuction((Seller) findUser("sorren"), new Item("iPad"), 200, 300, LocalDateTime.now().plusMinutes(1));
+	          createAuction((Seller) findUser("glyn"), new Item("Bike"), 80, 120, LocalDateTime.now().plusMinutes(1));
+	          createAuction((Seller) findUser("glyn"), new Item("Rocket Ship"), 80, 120, LocalDateTime.now().plusMinutes(1));
 	          //placeAuction((Seller) findUser("andy"), new Item("VR Headset"), 180, 270, LocalDateTime.now().plusMinutes(2));
 
 	          //Verify auctions
-	          String sampleAuction1 = "iPad";
-	          String sampleAuction2 = "Bike";
-	          String sampleAuction3 = "VR Headset";
-	          
+	         // String sampleAuction1 = "iPad";
+	          //String sampleAuction2 = "Bike";
+	          //String sampleAuction3 = "VR Headset";
 	          int aucLength = getAllAuctions().size();
 	          
-	          getAllAuctions().get(aucLength-1).verify();
+	         // System.out.println(aucLength = getAllAuctions().size());
+	          
+	          getAllAuctions().get(aucLength-1).verify(); //Verifies the auctions
 	          getAllAuctions().get(aucLength-2).verify();
-	          getAllAuctions().get(aucLength-3).verify(); 
+	          getAllAuctions().get(aucLength-3).verify();
+	          
+	          getAllAuctions().get(aucLength-1).placeBid(1000, (Buyer) findUser("mark")); //Places the bids for setup
+	          getAllAuctions().get(aucLength-1).placeBid(2400, (Buyer) findUser("kirsty"));
+	          getAllAuctions().get(aucLength-2).placeBid(200, (Buyer) findUser("andy"));
 
 	         /* for (Auction auc : getAllAuctions()) {  //finds the item with the name and verifies it.
 	               if(auc.getItem().getName().toLowerCase().equals(sampleAuction1)){
@@ -90,15 +99,14 @@ public final class Console{
 
 
 	          firstTimeStart = false;
-	          serialize();        
-	          serializeAuctions();     
+	   //       serialize();        
+	    //      serializeAuctions();     
 	          
-		  //}
-	        deserialize();
-	  	  	deserializeAuctions();	
+		  }
+	        
 	  	
-	    Thread thread = new Thread(new AuctionCheck(auctions, 1));
-	  	thread.start();
+	    Thread thread = new Thread(new AuctionCheck(auctions, 1)); // Creates the multithreading thread
+	  	thread.start(); // Starts the thread
   
 	  	
 	  	do {
@@ -134,6 +142,7 @@ public final class Console{
 			    	
 			    	createAccount(username, password, accountType);
 			    	System.out.println("Account has been Created.");
+			    	//serialize();
 			    	
 			    	
 			    	activeUser = findUser(username);  //Logs in after account has been created.
@@ -220,7 +229,7 @@ public final class Console{
 	  	    	  }
 	  	    	  break;
 	  	    	   
-	  	      } case "2" :{ // Create auction
+	  	    } case "2" :{ // Create auction
 	  	    	  
 	  	    	  //Getting all info for the Auction 
 	  	    	 
@@ -245,12 +254,16 @@ public final class Console{
 	  	    	  }
 	  	    	  
 	  	    	  try {
+	  	    		 // thread.stop();
+	  	    		 // thread.stop();
 	  	    		  createAuction((Seller) activeUser, new Item(itemDesc), startPrice, reservePrice, closeDate);
 	  	    		  serializeAuctions();
+	  	    		 // thread.start();
 	  	    	  } catch (Exception e){
 	  	    		  System.out.println("There was an error creating auction!");
 	  	    		  break;
 	  	    	  }
+	  	    	 // thread.start();
 	  	    	  //formatting date to output in the right format
 	  	    	  String formatedCloseDate = closeDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
 	  	    	  System.out.println(formatedCloseDate);
@@ -258,11 +271,7 @@ public final class Console{
 	  	    	  System.out.println("Item Desc: "+itemDesc+"   Start Price: "+startPrice+"   Reserve Price: "+reservePrice+"   Close Date: "+formatedCloseDate);
 	  	    	  System.out.println("If you are happy with the above, please enter verify to verify your auction:");
 	  	    	  String auctionVerify = S.nextLine();
-	  	    	 // thread.stop();
-	  	    	  thread.interrupt();
-	  	    	  //thread.();
-	  	    	  Thread thread2 = new Thread(new AuctionCheck(auctions, 1));
-	  	    	  thread2.start();
+
 	  	    
 	  	    	  if (auctionVerify.toUpperCase().equals("VERIFY")) {
 	  	    		  getAllAuctions().get(getAllAuctions().size() -1).verify();
@@ -391,6 +400,7 @@ public final class Console{
 	  	      case "Q" :{
 	  	    	thread.stop();
 	  	        System.exit(0);
+	  	        break;
 	  	      }
 	  		
 	  		}
@@ -412,6 +422,8 @@ public final class Console{
                 choice = menu.adminMenu();
                 switch(choice) {
               case "1":{ //Delete an Auction
+    		//	  thread.stop();
+  	    	//	  thread.interrupt();
             	  List<Auction> allAuctions = getAllAuctions();
             	  for (Auction i : allAuctions) {   // Loops through every auction in list
 	  	    			  System.out.println(i.toString()); 	  	    			 
@@ -424,9 +436,11 @@ public final class Console{
             			  auctions.remove(i); //removes the auction
             			  System.out.println("Auction Succesfully Removed");
             			  serializeAuctions(); //Updates the save
+            			  break;
             	  }
 
                 }
+            	//  thread.run();
             	  break;
               }
               case "2" : { // Delete a user
@@ -446,7 +460,7 @@ public final class Console{
                   }
                       }
                  
-            	  
+            	  break;
                   }
               case "3" :{ //List all Sellers
             	  

@@ -4,6 +4,12 @@ import java.io.Serializable;
 
 public class Buyer extends User implements Serializable {
 
+	/**
+	 * Buyer Constructor
+	 * @param username
+	 * @param password
+	 * @throws Exception
+	 */
 
   public Buyer(String username, String password) throws Exception{
     super(username, password);

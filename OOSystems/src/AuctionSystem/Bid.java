@@ -16,6 +16,13 @@ public class Bid implements Serializable{
   private Bid currentMaxBid;
   private boolean noti = false;
   private Status status;
+  
+  /**
+   * Bid Constructor
+   * @param amount
+   * @param buyer
+   * @param bidDate
+   */
 
   public Bid(double amount, Buyer buyer, LocalDateTime bidDate) {
     this.amount = amount;
@@ -31,10 +38,18 @@ public class Bid implements Serializable{
 			  closeDate.format(DateTimeFormatter.ofPattern("d MMM yy HH:mm"));
   
   }
+  /**
+   * 
+   * @return amount
+   */
   
   public double getAmount() {
 	  return amount;
   }
+  /**
+   * 
+   * @return buyer
+   */
   
   public Buyer getBuyer() {
 	  return buyer;
@@ -48,11 +63,20 @@ public void setIsWinnerNotified(Boolean noti) {
 	this.noti = noti;
 }
 
-public void notifyWinner(Seller winner, Item item) {
+/**
+ * Prints out Winning Notification
+ * @param winner
+ * @param item
+ */
+public void notifyWinner(Buyer winner, Item item) {
 	System.out.println("Auction for: "+item.getName());
 	System.out.println("Winner of auction: "+winner.getUsername());
 }
 
+/**
+ * 
+ * @return currentMaxBid
+ */
 
 public Bid getCurrentMaxBid() {
 	//Bid highestBid = Collections.max(getBids(), Comparator.comparing(o -> o.getAmount()));

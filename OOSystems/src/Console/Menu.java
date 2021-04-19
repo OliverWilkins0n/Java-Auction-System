@@ -119,7 +119,7 @@ public class Menu {
   }
 
   public String adminMenu(){
-    System.out.println("====Admin Menu====");
+   // System.out.println("====Admin Menu====");
     System.out.println("1 - Delete an Auction");
     System.out.println("2 - Delete a user");
     System.out.println("3 - List all Sellers");

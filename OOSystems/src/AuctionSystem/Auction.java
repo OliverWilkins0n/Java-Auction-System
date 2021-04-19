@@ -21,6 +21,16 @@ public final class Auction implements Serializable {
 	private LocalDateTime closeDate;
 	private Status status;
 	private List<Bid> bids = new ArrayList<Bid>();
+	
+	/**
+	 * Auction Constructor
+	 * @param seller
+	 * @param item
+	 * @param startPrice
+	 * @param reservePrice
+	 * @param closeDate
+	 * @throws Exception
+	 */
 
 	public Auction(Seller seller, Item item, double startPrice, double reservePrice, LocalDateTime closeDate) throws Exception{
 		this.seller = seller;
@@ -37,13 +47,18 @@ public final class Auction implements Serializable {
 	}
 	
 	public String toString() {
-		String theString = ("Item Name: "+this.item.getName()+" Status: "+this.getStatus()+" Start Price: "+this.startPrice+" Reserve Price: "+this.reservePrice+" Closing Date: "+this.closeDate);
+		//String theString = ("Item Name: "+this.item.getName()+" Status: "+this.getStatus()+" Start Price: "+this.startPrice+" Reserve Price: "+this.reservePrice+" Closing Date: "+this.closeDate);
+		String theString = ("Item Name: "+this.item.getName()+" Status: "+this.getStatus()+" Start Price: "+this.startPrice+" Reserve Price: "+this.reservePrice+" Closing Date: "+this.closeDate.getDayOfMonth() + "." +this.closeDate.getMonth() + "."+ this.closeDate.getYear()+ " " +this.closeDate.getHour()+":" +this.closeDate.getMinute());
 		return theString;
 	}
 
 	//Get Functions
 	public Seller getSeller(){
 		return this.seller;
+	}
+	
+	public Buyer getBuyer(){
+		return this.buyer;
 	}
 
 	public Item getItem(){
@@ -75,6 +90,12 @@ public final class Auction implements Serializable {
 		}
 	}
 
+	/**
+	 * Place Bid
+	 * @param amount
+	 * @param buyer
+	 * @throws Exception
+	 */
 	public void placeBid(double amount, Buyer buyer) throws Exception{
 		Bid currentMaxBid = getHighestBid();
 		System.out.println("current Max "+currentMaxBid);
@@ -89,6 +110,10 @@ public final class Auction implements Serializable {
 
 	}
 	
+	/**
+	 * 
+	 * @return The Greatest Bid on an item
+	 */
 	public Bid getHighestBid() {
 		/*
 		List<Bid> allBids = getBids();
@@ -116,6 +141,10 @@ public final class Auction implements Serializable {
 		return highestBid;
 	}
 
+	/**
+	 * 
+	 * @return bids
+	 */
 	public List<Bid> getBids(){
 		return this.bids;
 	}
@@ -132,10 +161,14 @@ public final class Auction implements Serializable {
 		}
 	}
 	
-	public void deleteAuction() {
-		
-	}
+//	public void deleteAuction() {
+//		
+//	}
 
+	/**
+	 * 
+	 * @return isBlocked
+	 */
 	public boolean isBlocked() {
 		if (this.status.equals(Status.BLOCKED)) {
 			return true;
