@@ -32,20 +32,71 @@ public final class Console{
   //private User user;
   //Thread thread = new Thread(new AuctionCheck(auctions, 1));/*Creates the thread, to check for when
   															//	an auction ends*/
-  	
+  boolean firstTimeStart = true;
   
   User activeUser = null; // The user that is logged in.
   
-  public Console(){
-    System.out.println("");
+  public Console() throws Exception{
+
   }
+  
+  
 
   public void auctionSetup() throws Exception{
 	  	deserialize();
 	  	deserializeAuctions();	
 	  	
+		//  if (firstTimeStart) {
+
+	          //Creating Sample Admin
+	          createAccount("admin", "_Admin", "A");
+
+	          //Creating Sample Sellers
+	          createAccount("sorren", "_Sorren", "S");
+	          createAccount("glyn", "_Glyn", "S");
+
+	          //Creating Sample Buyers
+	          createAccount("mark", "_Mark", "B");
+	          createAccount("kirsty", "_Kirsty", "B");
+	          createAccount("andy", "_Andy", "B");
+
+	          //Creating Sample Auctions
+	          createAuction((Seller) findUser("sorren"), new Item("iPad"), 200, 300, LocalDateTime.now().plusMinutes(1));
+	          createAuction((Seller) findUser("kirsty"), new Item("Bike"), 80, 120, LocalDateTime.now().plusMinutes(1));
+	          placeAuction((Seller) findUser("andy"), new Item("VR Headset"), 180, 270, LocalDateTime.now().plusMinutes(1));
+
+	          //Verify auctions
+	          String sampleAuction1 = "iPad";
+	          String sampleAuction2 = "Bike";
+	          String sampleAuction3 = "VR Headset";
+	          
+	          int aucLength = getAllAuctions().size();
+	          
+	          getAllAuctions().get(aucLength-1).verify();
+	          getAllAuctions().get(aucLength-2).verify();
+	          getAllAuctions().get(aucLength-3).verify();
+
+	         /* for (Auction auc : getAllAuctions()) {  //finds the item with the name and verifies it.
+	               if(auc.getItem().getName().toLowerCase().equals(sampleAuction1)){
+	                   auc.verify();
+	                  if(auc.getItem().getName().toLowerCase().equals(sampleAuction2)){
+	                        auc.verify();
+	                       if(auc.getItem().getName().toLowerCase().equals(sampleAuction3)){
+	                             auc.verify();
+	               }
+	               */
+
+
+
+	          firstTimeStart = false;
+	                  
+	               
+	          
+		  //}
+	  	
 	    Thread thread = new Thread(new AuctionCheck(auctions, 1));
 	  	thread.start();
+  
 	  	
 	  	do {
 	  		if (currentMenu == "start") {
@@ -139,7 +190,7 @@ public final class Console{
 			    	
 				} case "Q": {
 					menuLoop = false;
-					thread.destroy();;
+					thread.stop();
 					System.exit(0);
 					break;
 				}
@@ -204,9 +255,11 @@ public final class Console{
 	  	    	  System.out.println("Item Desc: "+itemDesc+"   Start Price: "+startPrice+"   Reserve Price: "+reservePrice+"   Close Date: "+formatedCloseDate);
 	  	    	  System.out.println("If you are happy with the above, please enter verify to verify your auction:");
 	  	    	  String auctionVerify = S.nextLine();
-	  	    	  thread.stop();
-	  	    	  thread.destroy();
+	  	    	 // thread.stop();
+	  	    	  thread.interrupt();
+	  	    	  //thread.();
 	  	    	  Thread thread2 = new Thread(new AuctionCheck(auctions, 1));
+	  	    	  thread2.start();
 	  	    
 	  	    	  if (auctionVerify.toUpperCase().equals("VERIFY")) {
 	  	    		  getAllAuctions().get(getAllAuctions().size() -1).verify();
@@ -255,7 +308,7 @@ public final class Console{
 	  	    	  break;
 	  	      } case "Q" :{
 	  	    	menuLoop = false; 
-	  	    	thread.destroy();
+	  	    	thread.stop();
 	  	        System.exit(0);        
 	  	        
 	  	      }
@@ -333,7 +386,7 @@ public final class Console{
 	  	    	break;
 	  	      }
 	  	      case "Q" :{
-	  	    	thread.destroy();
+	  	    	thread.stop();
 	  	        System.exit(0);
 	  	      }
 	  		
@@ -576,6 +629,14 @@ public final class Console{
 		  System.out.println(e.getMessage());
 	  }
   }
+  
+//  public Seller findSeller(String username) {
+//	  for (User i : users) {
+//		  if(i.getUsername().equals(username) && i instanceof Seller) {
+//			  return i;
+//		  }
+//	  }
+//  }
 
   
   public User findUser(String username) {

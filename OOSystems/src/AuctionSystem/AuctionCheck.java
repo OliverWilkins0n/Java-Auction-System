@@ -3,12 +3,13 @@ package AuctionSystem;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import Console.Console;
+import Console.robinconsole;
 
 public class AuctionCheck implements Runnable{
 //	private List<Auction>;
 	private Integer delay;
 	private List<Auction> auctions;
+	private volatile boolean exit = false;
 	
 	public AuctionCheck(List<Auction> auctions, Integer seconds) {
 		this.auctions = auctions;
@@ -20,22 +21,27 @@ public class AuctionCheck implements Runnable{
 		//System.out.println("got to here :)");
 		while(true) {
 			//this.auctions = console.getAllAuctions();
-			for(Auction i : auctions) {
-			//	if(i.getStatus().equals(Status.CLOSED)) {
-			//		break;
-			//	}
-				if(i.getCloseDate().isBefore(LocalDateTime.now()) && i.getStatus().equals(Status.ACTIVE)) {
-					i.close();
-					//i.getHighestBid().notifyWinner(i.getHighestBid().getBuyer(), i.getItem()));
-					i.getHighestBid().notifyWinner(i.getSeller(), i.getItem());
-					try {
-						Thread.sleep(4000);
-					} catch (Exception e) {
-						System.out.println("Thead Sleep error.");
+			if(!auctions.isEmpty()) {
+				for(Auction i : auctions) {
+				//	if(i.getStatus().equals(Status.CLOSED)) {
+				//		break;
+				//	}
+					if(i.getCloseDate().isBefore(LocalDateTime.now()) && i.getStatus().equals(Status.ACTIVE)) {
+						i.close();
+						//i.getHighestBid().notifyWinner(i.getHighestBid().getBuyer(), i.getItem()));
+						i.getHighestBid().notifyWinner(i.getSeller(), i.getItem());
+						try {
+							Thread.sleep(4000);
+						} catch (Exception e) {
+							System.out.println("Thead Sleep error.");
+						}
 					}
 				}
 			}
 		}
+	}
+	public void stop() {
+		exit = true;
 	}
 }
 	

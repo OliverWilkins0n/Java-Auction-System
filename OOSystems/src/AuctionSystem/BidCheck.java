@@ -6,6 +6,7 @@ import java.util.List;
 public class BidCheck implements Runnable {
 	private List<Bid> bids;
 	private Integer delay;
+	private volatile boolean exit = false;
 	
 	public BidCheck(List<Bid> bids, Integer seconds) {
 		this.bids = bids;
@@ -14,7 +15,7 @@ public class BidCheck implements Runnable {
 	
 	@Override
 	public void run() {
-		while(true) {
+		while(!exit) {
 			try {
 				Thread.sleep(delay);
 				
@@ -34,6 +35,9 @@ public class BidCheck implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+	public void stop() {
+		exit = true;
 	}
 
 	public synchronized void setSeconds(Integer seconds) {
