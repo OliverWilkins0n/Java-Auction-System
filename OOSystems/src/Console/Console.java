@@ -43,8 +43,6 @@ public final class Console{
   
 
   public void auctionSetup() throws Exception{
-	  	deserialize();
-	  	deserializeAuctions();	
 	  	
 		//  if (firstTimeStart) {
 
@@ -61,9 +59,9 @@ public final class Console{
 	          createAccount("andy", "_Andy", "B");
 
 	          //Creating Sample Auctions
-	          createAuction((Seller) findUser("sorren"), new Item("iPad"), 200, 300, LocalDateTime.now().plusMinutes(1));
-	          createAuction((Seller) findUser("kirsty"), new Item("Bike"), 80, 120, LocalDateTime.now().plusMinutes(1));
-	          placeAuction((Seller) findUser("andy"), new Item("VR Headset"), 180, 270, LocalDateTime.now().plusMinutes(1));
+	          createAuction((Seller) findUser("sorren"), new Item("iPad"), 200, 300, LocalDateTime.now().plusMinutes(2));
+	          createAuction((Seller) findUser("glyn"), new Item("Bike"), 80, 120, LocalDateTime.now().plusMinutes(2));
+	          //placeAuction((Seller) findUser("andy"), new Item("VR Headset"), 180, 270, LocalDateTime.now().plusMinutes(2));
 
 	          //Verify auctions
 	          String sampleAuction1 = "iPad";
@@ -74,7 +72,7 @@ public final class Console{
 	          
 	          getAllAuctions().get(aucLength-1).verify();
 	          getAllAuctions().get(aucLength-2).verify();
-	          getAllAuctions().get(aucLength-3).verify();
+	          getAllAuctions().get(aucLength-3).verify(); 
 
 	         /* for (Auction auc : getAllAuctions()) {  //finds the item with the name and verifies it.
 	               if(auc.getItem().getName().toLowerCase().equals(sampleAuction1)){
@@ -84,15 +82,20 @@ public final class Console{
 	                       if(auc.getItem().getName().toLowerCase().equals(sampleAuction3)){
 	                             auc.verify();
 	               }
-	               */
+	                  }
+	               }
+	          } */
+	               
 
 
 
 	          firstTimeStart = false;
-	                  
-	               
+	          serialize();        
+	          serializeAuctions();     
 	          
 		  //}
+	        deserialize();
+	  	  	deserializeAuctions();	
 	  	
 	    Thread thread = new Thread(new AuctionCheck(auctions, 1));
 	  	thread.start();
